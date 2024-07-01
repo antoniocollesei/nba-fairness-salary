@@ -351,9 +351,24 @@ We will be using a library named DiCE (<a class="github reference external" href
 <p>We will be implementing DiCE with an official NBA database reporting players’ stats and salary for 2022/2023 season. The aim is to suggest which (and, most importantly, how much) stats need to improve in order to expect a better salary. Let’s jump right in.</p>
 <section id="install-and-necessary-libraries">
 <h3>Install and necessary libraries<a class="headerlink" href="#install-and-necessary-libraries" title="Link to this heading">#</a></h3>
-<p>DiCE can be easily installed (pip install dice-ml). Other than that only <em>pandas</em> and <em>scikit-learn</em> must be loaded.
-Standard libraries for ML classification are required, nothing really fancy.
-DiCE claims to be able to work with whatever ML model, so you could just build your own.</p>
+<p>DiCE can be easily installed (check package documentation). Other than that only <em>pandas</em> and <em>scikit-learn</em> must be loaded, so Standard libraries for ML classification are required, nothing really fancy.
+DiCE claims to be able to work with whatever ML model, therefore you could also just build your own.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">dice_ml</span>
+<span class="kn">from</span> <span class="nn">dice_ml</span> <span class="kn">import</span> <span class="n">Dice</span>
+
+<span class="kn">from</span> <span class="nn">sklearn.pipeline</span> <span class="kn">import</span> <span class="n">Pipeline</span>
+<span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">StandardScaler</span><span class="p">,</span> <span class="n">OneHotEncoder</span>
+<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
+<span class="kn">from</span> <span class="nn">sklearn.compose</span> <span class="kn">import</span> <span class="n">ColumnTransformer</span>
+<span class="kn">from</span> <span class="nn">sklearn.ensemble</span> <span class="kn">import</span> <span class="n">RandomForestClassifier</span>
+
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+</pre></div>
+</div>
+</div>
+</div>
 </section>
 <section id="load-and-preprocess-the-nba-dataset">
 <h3>Load and preprocess the NBA dataset<a class="headerlink" href="#load-and-preprocess-the-nba-dataset" title="Link to this heading">#</a></h3>
@@ -373,17 +388,165 @@ In all honesty, it would have been better to average the stats of the past five 
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;stats_salary_NBA_2223.csv&#39;</span><span class="p">)</span>
-<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span>
-<span class="nn">      3 # remove columns that have a &#39;.&#39; or an &#39;X&#39;</span> in <span class="ni">the column name </span><span class="nt">(so, percentages)</span>
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
 
-<span class="ne">NameError</span>: name &#39;pd&#39; is not defined
-</pre></div>
-</div>
-</div>
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Player</th>
+      <th>Pos</th>
+      <th>Age</th>
+      <th>G</th>
+      <th>GS</th>
+      <th>MP</th>
+      <th>FG</th>
+      <th>FGA</th>
+      <th>FT</th>
+      <th>FTA</th>
+      <th>ORB</th>
+      <th>DRB</th>
+      <th>TRB</th>
+      <th>AST</th>
+      <th>STL</th>
+      <th>BLK</th>
+      <th>TOV</th>
+      <th>PF</th>
+      <th>PTS</th>
+      <th>salary</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Aaron Gordon</td>
+      <td>PF</td>
+      <td>26</td>
+      <td>75</td>
+      <td>75</td>
+      <td>31.7</td>
+      <td>5.8</td>
+      <td>11.1</td>
+      <td>2.3</td>
+      <td>3.1</td>
+      <td>1.7</td>
+      <td>4.2</td>
+      <td>5.9</td>
+      <td>2.5</td>
+      <td>0.6</td>
+      <td>0.6</td>
+      <td>1.8</td>
+      <td>2.0</td>
+      <td>15.0</td>
+      <td>19690909.0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Aaron Holiday</td>
+      <td>PG</td>
+      <td>25</td>
+      <td>63</td>
+      <td>15</td>
+      <td>16.2</td>
+      <td>2.4</td>
+      <td>5.4</td>
+      <td>0.9</td>
+      <td>1.1</td>
+      <td>0.4</td>
+      <td>1.6</td>
+      <td>1.9</td>
+      <td>2.4</td>
+      <td>0.7</td>
+      <td>0.1</td>
+      <td>1.1</td>
+      <td>1.5</td>
+      <td>6.3</td>
+      <td>1836090.0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Aaron Nesmith</td>
+      <td>SF</td>
+      <td>22</td>
+      <td>52</td>
+      <td>3</td>
+      <td>11.0</td>
+      <td>1.4</td>
+      <td>3.5</td>
+      <td>0.4</td>
+      <td>0.5</td>
+      <td>0.3</td>
+      <td>1.4</td>
+      <td>1.7</td>
+      <td>0.4</td>
+      <td>0.4</td>
+      <td>0.1</td>
+      <td>0.6</td>
+      <td>1.3</td>
+      <td>3.8</td>
+      <td>3804360.0</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Aaron Wiggins</td>
+      <td>SG</td>
+      <td>23</td>
+      <td>50</td>
+      <td>35</td>
+      <td>24.2</td>
+      <td>3.1</td>
+      <td>6.7</td>
+      <td>1.2</td>
+      <td>1.7</td>
+      <td>1.0</td>
+      <td>2.5</td>
+      <td>3.6</td>
+      <td>1.4</td>
+      <td>0.6</td>
+      <td>0.2</td>
+      <td>1.1</td>
+      <td>1.9</td>
+      <td>8.3</td>
+      <td>1563518.0</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>Admiral Schofield</td>
+      <td>SF</td>
+      <td>24</td>
+      <td>38</td>
+      <td>1</td>
+      <td>12.3</td>
+      <td>1.4</td>
+      <td>3.4</td>
+      <td>0.3</td>
+      <td>0.4</td>
+      <td>0.4</td>
+      <td>1.9</td>
+      <td>2.3</td>
+      <td>0.7</td>
+      <td>0.1</td>
+      <td>0.1</td>
+      <td>0.6</td>
+      <td>1.5</td>
+      <td>3.8</td>
+      <td>506508.0</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
 </div>
 </section>
 <section id="prepare-the-target">
@@ -521,235 +684,135 @@ We want to see, for example, in terms of points scored (‘PTS’) what his cont
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>100%|██████████| 1/1 [00:04&lt;00:00,  4.24s/it]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  0%|                                                                                                                                                                                               | 0/1 [00:00&lt;?, ?it/s]
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Query instance (original outcome : 5m-)
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  0%|                                                                                                                                                                                               | 0/1 [00:29&lt;?, ?it/s]
 </pre></div>
 </div>
 <div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>
 </pre></div>
 </div>
-<div class="output text_html"><div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">KeyboardInterrupt</span><span class="g g-Whitespace">                         </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">7</span><span class="p">],</span> <span class="n">line</span> <span class="mi">11</span>
+<span class="g g-Whitespace">      </span><span class="mi">9</span> <span class="c1"># Generate counterfactuals for the player</span>
+<span class="g g-Whitespace">     </span><span class="mi">10</span> <span class="n">query_instances</span> <span class="o">=</span> <span class="n">x_test</span><span class="p">[</span><span class="n">player_index</span><span class="p">:</span><span class="n">player_index</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span>
+<span class="ne">---&gt; </span><span class="mi">11</span> <span class="n">genetic</span> <span class="o">=</span> <span class="n">exp_genetic</span><span class="o">.</span><span class="n">generate_counterfactuals</span><span class="p">(</span><span class="n">query_instances</span><span class="p">,</span> 
+<span class="g g-Whitespace">     </span><span class="mi">12</span>                                                <span class="n">total_CFs</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
+<span class="g g-Whitespace">     </span><span class="mi">13</span>                                                <span class="n">features_to_vary</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Age&#39;</span><span class="p">,</span> <span class="s1">&#39;PTS&#39;</span><span class="p">,</span> <span class="s1">&#39;FG&#39;</span><span class="p">,</span> <span class="s1">&#39;ORB&#39;</span><span class="p">,</span> <span class="s1">&#39;DRB&#39;</span><span class="p">,</span> <span class="s1">&#39;STL&#39;</span><span class="p">,</span> <span class="s1">&#39;BLK&#39;</span><span class="p">],</span>
+<span class="g g-Whitespace">     </span><span class="mi">14</span>                                                <span class="n">desired_class</span><span class="o">=</span><span class="mi">1</span>
+<span class="g g-Whitespace">     </span><span class="mi">15</span>                                                <span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">16</span> <span class="n">genetic</span><span class="o">.</span><span class="n">visualize_as_dataframe</span><span class="p">(</span><span class="n">show_only_changes</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
+<span class="nn">File ~/.python/current/lib/python3.10/site-packages/dice_ml/explainer_interfaces/explainer_base.py:186,</span> in <span class="ni">ExplainerBase.generate_counterfactuals</span><span class="nt">(self, query_instances, total_CFs, desired_class, desired_range, permitted_range, features_to_vary, stopping_threshold, posthoc_sparsity_param, proximity_weight, sparsity_weight, diversity_weight, categorical_penalty, posthoc_sparsity_algorithm, verbose, **kwargs)</span>
+<span class="g g-Whitespace">    </span><span class="mi">184</span> <span class="k">for</span> <span class="n">query_instance</span> <span class="ow">in</span> <span class="n">tqdm</span><span class="p">(</span><span class="n">query_instances_list</span><span class="p">):</span>
+<span class="g g-Whitespace">    </span><span class="mi">185</span>     <span class="bp">self</span><span class="o">.</span><span class="n">data_interface</span><span class="o">.</span><span class="n">set_continuous_feature_indexes</span><span class="p">(</span><span class="n">query_instance</span><span class="p">)</span>
+<span class="ne">--&gt; </span><span class="mi">186</span>     <span class="n">res</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_generate_counterfactuals</span><span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">187</span>         <span class="n">query_instance</span><span class="p">,</span> <span class="n">total_CFs</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">188</span>         <span class="n">desired_class</span><span class="o">=</span><span class="n">desired_class</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">189</span>         <span class="n">desired_range</span><span class="o">=</span><span class="n">desired_range</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">190</span>         <span class="n">permitted_range</span><span class="o">=</span><span class="n">permitted_range</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">191</span>         <span class="n">features_to_vary</span><span class="o">=</span><span class="n">features_to_vary</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">192</span>         <span class="n">stopping_threshold</span><span class="o">=</span><span class="n">stopping_threshold</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">193</span>         <span class="n">posthoc_sparsity_param</span><span class="o">=</span><span class="n">posthoc_sparsity_param</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">194</span>         <span class="n">posthoc_sparsity_algorithm</span><span class="o">=</span><span class="n">posthoc_sparsity_algorithm</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">195</span>         <span class="n">verbose</span><span class="o">=</span><span class="n">verbose</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">196</span>         <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">197</span>     <span class="n">res</span><span class="o">.</span><span class="n">test_instance_df</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data_interface</span><span class="o">.</span><span class="n">ensure_consistent_type</span><span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">198</span>             <span class="n">res</span><span class="o">.</span><span class="n">test_instance_df</span><span class="p">,</span> <span class="n">query_instance</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">199</span>     <span class="k">if</span> <span class="n">res</span><span class="o">.</span><span class="n">final_cfs_df</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">res</span><span class="o">.</span><span class="n">final_cfs_df</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
 
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>Pos</th>
-      <th>Age</th>
-      <th>G</th>
-      <th>GS</th>
-      <th>MP</th>
-      <th>FG</th>
-      <th>FGA</th>
-      <th>FT</th>
-      <th>FTA</th>
-      <th>ORB</th>
-      <th>DRB</th>
-      <th>TRB</th>
-      <th>AST</th>
-      <th>STL</th>
-      <th>BLK</th>
-      <th>TOV</th>
-      <th>PF</th>
-      <th>PTS</th>
-      <th>salary</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>C</td>
-      <td>22</td>
-      <td>77</td>
-      <td>6</td>
-      <td>15.8</td>
-      <td>3.0</td>
-      <td>6.2</td>
-      <td>1.5</td>
-      <td>1.9</td>
-      <td>1.3</td>
-      <td>2.6</td>
-      <td>3.9</td>
-      <td>0.9</td>
-      <td>0.5</td>
-      <td>0.9</td>
-      <td>1.1</td>
-      <td>2.2</td>
-      <td>8.3</td>
-      <td>5m-</td>
-    </tr>
-  </tbody>
-</table>
-</div></div><div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Diverse Counterfactual set (new outcome: 25m+)
+<span class="nn">File ~/.python/current/lib/python3.10/site-packages/dice_ml/explainer_interfaces/dice_genetic.py:287,</span> in <span class="ni">DiceGenetic._generate_counterfactuals</span><span class="nt">(self, query_instance, total_CFs, initialization, desired_range, desired_class, proximity_weight, sparsity_weight, diversity_weight, categorical_penalty, algorithm, features_to_vary, permitted_range, yloss_type, diversity_loss_type, feature_weights, stopping_threshold, posthoc_sparsity_param, posthoc_sparsity_algorithm, maxiterations, thresh, verbose)</span>
+<span class="g g-Whitespace">    </span><span class="mi">284</span>     <span class="k">if</span> <span class="n">col</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">query_instance_df_dummies</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">285</span>         <span class="n">query_instance_df_dummies</span><span class="p">[</span><span class="n">col</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="ne">--&gt; </span><span class="mi">287</span> <span class="bp">self</span><span class="o">.</span><span class="n">do_param_initializations</span><span class="p">(</span><span class="n">total_CFs</span><span class="p">,</span> <span class="n">initialization</span><span class="p">,</span> <span class="n">desired_range</span><span class="p">,</span> <span class="n">desired_class</span><span class="p">,</span> <span class="n">query_instance</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">288</span>                               <span class="n">query_instance_df_dummies</span><span class="p">,</span> <span class="n">algorithm</span><span class="p">,</span> <span class="n">features_to_vary</span><span class="p">,</span> <span class="n">permitted_range</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">289</span>                               <span class="n">yloss_type</span><span class="p">,</span> <span class="n">diversity_loss_type</span><span class="p">,</span> <span class="n">feature_weights</span><span class="p">,</span> <span class="n">proximity_weight</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">290</span>                               <span class="n">sparsity_weight</span><span class="p">,</span> <span class="n">diversity_weight</span><span class="p">,</span> <span class="n">categorical_penalty</span><span class="p">,</span> <span class="n">verbose</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">292</span> <span class="n">query_instance_df</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">find_counterfactuals</span><span class="p">(</span><span class="n">query_instance</span><span class="p">,</span> <span class="n">desired_range</span><span class="p">,</span> <span class="n">desired_class</span><span class="p">,</span> <span class="n">features_to_vary</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">293</span>                                               <span class="n">maxiterations</span><span class="p">,</span> <span class="n">thresh</span><span class="p">,</span> <span class="n">verbose</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">295</span> <span class="n">desired_class_param</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">decode_model_output</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">target_cf_class</span><span class="p">[</span><span class="mi">0</span><span class="p">]))[</span><span class="mi">0</span><span class="p">]</span> \
+<span class="g g-Whitespace">    </span><span class="mi">296</span>     <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;target_cf_class&#39;</span><span class="p">)</span> <span class="k">else</span> <span class="n">desired_class</span>
+
+<span class="nn">File ~/.python/current/lib/python3.10/site-packages/dice_ml/explainer_interfaces/dice_genetic.py:194,</span> in <span class="ni">DiceGenetic.do_param_initializations</span><span class="nt">(self, total_CFs, initialization, desired_range, desired_class, query_instance, query_instance_df_dummies, algorithm, features_to_vary, permitted_range, yloss_type, diversity_loss_type, feature_weights, proximity_weight, sparsity_weight, diversity_weight, categorical_penalty, verbose)</span>
+<span class="g g-Whitespace">    </span><span class="mi">192</span> <span class="bp">self</span><span class="o">.</span><span class="n">feature_range</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_valid_feature_range</span><span class="p">(</span><span class="n">normalized</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">193</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cfs</span><span class="p">)</span> <span class="o">!=</span> <span class="n">total_CFs</span><span class="p">:</span>
+<span class="ne">--&gt; </span><span class="mi">194</span>     <span class="bp">self</span><span class="o">.</span><span class="n">do_cf_initializations</span><span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">195</span>         <span class="n">total_CFs</span><span class="p">,</span> <span class="n">initialization</span><span class="p">,</span> <span class="n">algorithm</span><span class="p">,</span> <span class="n">features_to_vary</span><span class="p">,</span> <span class="n">desired_range</span><span class="p">,</span> <span class="n">desired_class</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">196</span>         <span class="n">query_instance</span><span class="p">,</span> <span class="n">query_instance_df_dummies</span><span class="p">,</span> <span class="n">verbose</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">197</span> <span class="k">else</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">198</span>     <span class="bp">self</span><span class="o">.</span><span class="n">total_CFs</span> <span class="o">=</span> <span class="n">total_CFs</span>
+
+<span class="nn">File ~/.python/current/lib/python3.10/site-packages/dice_ml/explainer_interfaces/dice_genetic.py:180,</span> in <span class="ni">DiceGenetic.do_cf_initializations</span><span class="nt">(self, total_CFs, initialization, algorithm, features_to_vary, desired_range, desired_class, query_instance, query_instance_df_dummies, verbose)</span>
+<span class="g g-Whitespace">    </span><span class="mi">178</span>         <span class="n">indices</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">KD_tree</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">query_instance_df_dummies</span><span class="p">,</span> <span class="n">num_queries</span><span class="p">)[</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+<span class="g g-Whitespace">    </span><span class="mi">179</span>         <span class="n">KD_tree_output</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dataset_with_predictions</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">indices</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="ne">--&gt; </span><span class="mi">180</span>         <span class="bp">self</span><span class="o">.</span><span class="n">do_KD_init</span><span class="p">(</span><span class="n">features_to_vary</span><span class="p">,</span> <span class="n">query_instance</span><span class="p">,</span> <span class="n">KD_tree_output</span><span class="p">,</span> <span class="n">desired_class</span><span class="p">,</span> <span class="n">desired_range</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">182</span> <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">183</span>     <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Initialization complete! Generating counterfactuals...&quot;</span><span class="p">)</span>
+
+<span class="nn">File ~/.python/current/lib/python3.10/site-packages/dice_ml/explainer_interfaces/dice_genetic.py:140,</span> in <span class="ni">DiceGenetic.do_KD_init</span><span class="nt">(self, features_to_vary, query_instance, cfs, desired_class, desired_range)</span>
+<span class="g g-Whitespace">    </span><span class="mi">137</span> <span class="n">uniques</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">new_array</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">139</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">uniques</span><span class="p">)</span> <span class="o">!=</span> <span class="bp">self</span><span class="o">.</span><span class="n">population_size</span><span class="p">:</span>
+<span class="ne">--&gt; </span><span class="mi">140</span>     <span class="n">remaining_cfs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">do_random_init</span><span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">141</span>         <span class="bp">self</span><span class="o">.</span><span class="n">population_size</span> <span class="o">-</span> <span class="nb">len</span><span class="p">(</span><span class="n">uniques</span><span class="p">),</span> <span class="n">features_to_vary</span><span class="p">,</span> <span class="n">query_instance</span><span class="p">,</span> <span class="n">desired_class</span><span class="p">,</span> <span class="n">desired_range</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">142</span>     <span class="bp">self</span><span class="o">.</span><span class="n">cfs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">([</span><span class="n">uniques</span><span class="p">,</span> <span class="n">remaining_cfs</span><span class="p">])</span>
+
+<span class="nn">File ~/.python/current/lib/python3.10/site-packages/dice_ml/explainer_interfaces/dice_genetic.py:98,</span> in <span class="ni">DiceGenetic.do_random_init</span><span class="nt">(self, num_inits, features_to_vary, query_instance, desired_class, desired_range)</span>
+<span class="g g-Whitespace">     </span><span class="mi">96</span>     <span class="k">else</span><span class="p">:</span>
+<span class="g g-Whitespace">     </span><span class="mi">97</span>         <span class="n">one_init</span><span class="p">[</span><span class="n">jx</span><span class="p">]</span> <span class="o">=</span> <span class="n">query_instance</span><span class="p">[</span><span class="n">jx</span><span class="p">]</span>
+<span class="ne">---&gt; </span><span class="mi">98</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_cf_valid</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">predict_fn_scores</span><span class="p">(</span><span class="n">one_init</span><span class="p">)):</span>
+<span class="g g-Whitespace">     </span><span class="mi">99</span>     <span class="n">remaining_cfs</span><span class="p">[</span><span class="n">kx</span><span class="p">]</span> <span class="o">=</span> <span class="n">one_init</span>
+<span class="g g-Whitespace">    </span><span class="mi">100</span>     <span class="n">kx</span> <span class="o">+=</span> <span class="mi">1</span>
+
+<span class="nn">File ~/.python/current/lib/python3.10/site-packages/dice_ml/explainer_interfaces/dice_genetic.py:308,</span> in <span class="ni">DiceGenetic.predict_fn_scores</span><span class="nt">(self, input_instance)</span>
+<span class="g g-Whitespace">    </span><span class="mi">306</span> <span class="k">def</span> <span class="nf">predict_fn_scores</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">input_instance</span><span class="p">):</span>
+<span class="g g-Whitespace">    </span><span class="mi">307</span><span class="w">     </span><span class="sd">&quot;&quot;&quot;Returns prediction scores.&quot;&quot;&quot;</span>
+<span class="ne">--&gt; </span><span class="mi">308</span>     <span class="n">input_instance</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">label_decode</span><span class="p">(</span><span class="n">input_instance</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">309</span>     <span class="n">out</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">get_output</span><span class="p">(</span><span class="n">input_instance</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">310</span>     <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">model_type</span> <span class="o">==</span> <span class="n">ModelTypes</span><span class="o">.</span><span class="n">Classifier</span> <span class="ow">and</span> <span class="n">out</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">311</span>         <span class="c1"># DL models return only 1 for binary classification</span>
+
+<span class="nn">File ~/.python/current/lib/python3.10/site-packages/dice_ml/explainer_interfaces/dice_genetic.py:560,</span> in <span class="ni">DiceGenetic.label_decode</span><span class="nt">(self, labelled_input)</span>
+<span class="g g-Whitespace">    </span><span class="mi">558</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">data_interface</span><span class="o">.</span><span class="n">feature_names</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">data_interface</span><span class="o">.</span><span class="n">categorical_feature_names</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">559</span>     <span class="n">enc</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">labelencoder</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">data_interface</span><span class="o">.</span><span class="n">feature_names</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span>
+<span class="ne">--&gt; </span><span class="mi">560</span>     <span class="n">val</span> <span class="o">=</span> <span class="n">enc</span><span class="o">.</span><span class="n">inverse_transform</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">labelled_input</span><span class="p">[</span><span class="n">j</span><span class="p">][</span><span class="n">i</span><span class="p">]],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">int32</span><span class="p">))</span>
+<span class="g g-Whitespace">    </span><span class="mi">561</span>     <span class="n">temp</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">data_interface</span><span class="o">.</span><span class="n">feature_names</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span> <span class="o">=</span> <span class="n">val</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="g g-Whitespace">    </span><span class="mi">562</span> <span class="k">else</span><span class="p">:</span>
+
+<span class="nn">File ~/.local/lib/python3.10/site-packages/sklearn/preprocessing/_label.py:158,</span> in <span class="ni">LabelEncoder.inverse_transform</span><span class="nt">(self, y)</span>
+<span class="g g-Whitespace">    </span><span class="mi">155</span> <span class="k">if</span> <span class="n">_num_samples</span><span class="p">(</span><span class="n">y</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">156</span>     <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([])</span>
+<span class="ne">--&gt; </span><span class="mi">158</span> <span class="n">diff</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">setdiff1d</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">classes_</span><span class="p">)))</span>
+<span class="g g-Whitespace">    </span><span class="mi">159</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">diff</span><span class="p">):</span>
+<span class="g g-Whitespace">    </span><span class="mi">160</span>     <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;y contains previously unseen labels: </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="nb">str</span><span class="p">(</span><span class="n">diff</span><span class="p">))</span>
+
+<span class="nn">File ~/.local/lib/python3.10/site-packages/numpy/lib/arraysetops.py:979,</span> in <span class="ni">setdiff1d</span><span class="nt">(ar1, ar2, assume_unique)</span>
+<span class="g g-Whitespace">    </span><span class="mi">977</span>     <span class="n">ar1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">ar1</span><span class="p">)</span><span class="o">.</span><span class="n">ravel</span><span class="p">()</span>
+<span class="g g-Whitespace">    </span><span class="mi">978</span> <span class="k">else</span><span class="p">:</span>
+<span class="ne">--&gt; </span><span class="mi">979</span>     <span class="n">ar1</span> <span class="o">=</span> <span class="n">unique</span><span class="p">(</span><span class="n">ar1</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">980</span>     <span class="n">ar2</span> <span class="o">=</span> <span class="n">unique</span><span class="p">(</span><span class="n">ar2</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">981</span> <span class="k">return</span> <span class="n">ar1</span><span class="p">[</span><span class="n">in1d</span><span class="p">(</span><span class="n">ar1</span><span class="p">,</span> <span class="n">ar2</span><span class="p">,</span> <span class="n">assume_unique</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">invert</span><span class="o">=</span><span class="kc">True</span><span class="p">)]</span>
+
+<span class="nn">File ~/.local/lib/python3.10/site-packages/numpy/lib/arraysetops.py:274,</span> in <span class="ni">unique</span><span class="nt">(ar, return_index, return_inverse, return_counts, axis, equal_nan)</span>
+<span class="g g-Whitespace">    </span><span class="mi">272</span> <span class="n">ar</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asanyarray</span><span class="p">(</span><span class="n">ar</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">273</span> <span class="k">if</span> <span class="n">axis</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+<span class="ne">--&gt; </span><span class="mi">274</span>     <span class="n">ret</span> <span class="o">=</span> <span class="n">_unique1d</span><span class="p">(</span><span class="n">ar</span><span class="p">,</span> <span class="n">return_index</span><span class="p">,</span> <span class="n">return_inverse</span><span class="p">,</span> <span class="n">return_counts</span><span class="p">,</span> 
+<span class="g g-Whitespace">    </span><span class="mi">275</span>                     <span class="n">equal_nan</span><span class="o">=</span><span class="n">equal_nan</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">276</span>     <span class="k">return</span> <span class="n">_unpack_tuple</span><span class="p">(</span><span class="n">ret</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">278</span> <span class="c1"># axis was specified and not None</span>
+
+<span class="nn">File ~/.local/lib/python3.10/site-packages/numpy/lib/arraysetops.py:355,</span> in <span class="ni">_unique1d</span><span class="nt">(ar, return_index, return_inverse, return_counts, equal_nan)</span>
+<span class="g g-Whitespace">    </span><span class="mi">352</span>     <span class="n">mask</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span> <span class="o">=</span> <span class="n">aux</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span> <span class="o">!=</span> <span class="n">aux</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+<span class="g g-Whitespace">    </span><span class="mi">354</span> <span class="n">ret</span> <span class="o">=</span> <span class="p">(</span><span class="n">aux</span><span class="p">[</span><span class="n">mask</span><span class="p">],)</span>
+<span class="ne">--&gt; </span><span class="mi">355</span> <span class="k">if</span> <span class="n">return_index</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">356</span>     <span class="n">ret</span> <span class="o">+=</span> <span class="p">(</span><span class="n">perm</span><span class="p">[</span><span class="n">mask</span><span class="p">],)</span>
+<span class="g g-Whitespace">    </span><span class="mi">357</span> <span class="k">if</span> <span class="n">return_inverse</span><span class="p">:</span>
+
+<span class="ne">KeyboardInterrupt</span>: 
 </pre></div>
 </div>
-<div class="output text_html"><div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>Pos</th>
-      <th>Age</th>
-      <th>G</th>
-      <th>GS</th>
-      <th>MP</th>
-      <th>FG</th>
-      <th>FGA</th>
-      <th>FT</th>
-      <th>FTA</th>
-      <th>ORB</th>
-      <th>DRB</th>
-      <th>TRB</th>
-      <th>AST</th>
-      <th>STL</th>
-      <th>BLK</th>
-      <th>TOV</th>
-      <th>PF</th>
-      <th>PTS</th>
-      <th>salary</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>-</td>
-      <td>33</td>
-      <td>-</td>
-      <td>-</td>
-      <td>-</td>
-      <td>10.5</td>
-      <td>-</td>
-      <td>-</td>
-      <td>-</td>
-      <td>0.5</td>
-      <td>6.9</td>
-      <td>-</td>
-      <td>-</td>
-      <td>0.9</td>
-      <td>-</td>
-      <td>-</td>
-      <td>-</td>
-      <td>29.9</td>
-      <td>25m+</td>
-    </tr>
-    <tr>
-      <th>0</th>
-      <td>-</td>
-      <td>38</td>
-      <td>-</td>
-      <td>-</td>
-      <td>-</td>
-      <td>11.2</td>
-      <td>-</td>
-      <td>-</td>
-      <td>-</td>
-      <td>1.9</td>
-      <td>10.1</td>
-      <td>-</td>
-      <td>-</td>
-      <td>0.6</td>
-      <td>0.8</td>
-      <td>-</td>
-      <td>-</td>
-      <td>30.0</td>
-      <td>25m+</td>
-    </tr>
-    <tr>
-      <th>0</th>
-      <td>-</td>
-      <td>37</td>
-      <td>-</td>
-      <td>-</td>
-      <td>-</td>
-      <td>11.4</td>
-      <td>-</td>
-      <td>-</td>
-      <td>-</td>
-      <td>1.1</td>
-      <td>7.1</td>
-      <td>-</td>
-      <td>-</td>
-      <td>1.3</td>
-      <td>1.1</td>
-      <td>-</td>
-      <td>-</td>
-      <td>30.3</td>
-      <td>25m+</td>
-    </tr>
-    <tr>
-      <th>0</th>
-      <td>-</td>
-      <td>27</td>
-      <td>-</td>
-      <td>-</td>
-      <td>-</td>
-      <td>9.3</td>
-      <td>-</td>
-      <td>-</td>
-      <td>-</td>
-      <td>2.7</td>
-      <td>6.0</td>
-      <td>-</td>
-      <td>-</td>
-      <td>0.6</td>
-      <td>0.3</td>
-      <td>-</td>
-      <td>-</td>
-      <td>23.0</td>
-      <td>25m+</td>
-    </tr>
-    <tr>
-      <th>0</th>
-      <td>-</td>
-      <td>27</td>
-      <td>-</td>
-      <td>-</td>
-      <td>-</td>
-      <td>9.3</td>
-      <td>-</td>
-      <td>-</td>
-      <td>-</td>
-      <td>2.7</td>
-      <td>7.2</td>
-      <td>-</td>
-      <td>-</td>
-      <td>0.6</td>
-      <td>0.3</td>
-      <td>-</td>
-      <td>-</td>
-      <td>23.0</td>
-      <td>25m+</td>
-    </tr>
-  </tbody>
-</table>
-</div></div></div>
+</div>
 </div>
 <p>And as a reference these are the league averages per single stat.</p>
 <div class="cell docutils container">
