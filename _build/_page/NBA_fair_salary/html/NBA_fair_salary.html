@@ -1,0 +1,957 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Fairness by Counterfactuals &#8212; My Jupyter Book</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=87e54e7c" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'NBA_fair_salary';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="#">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">My Jupyter Book</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1 current active">
+                <a class="reference internal" href="#">
+                    Fairness by Counterfactuals
+                </a>
+            </li>
+        </ul>
+        
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/NBA_fair_salary.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Fairness by Counterfactuals</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#case-study-nba-players-salary-expectations">Case Study: NBA Players Salary Expectations</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#install-and-necessary-libraries">Install and necessary libraries</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#load-and-preprocess-the-nba-dataset">Load and preprocess the NBA dataset</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#prepare-the-target">Prepare the target</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#multi-class-modeling">Multi-Class Modeling</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#build-dice-model">Build DiCE model</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#considerations">Considerations</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#conclusions">Conclusions</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="fairness-by-counterfactuals">
+<h1>Fairness by Counterfactuals<a class="headerlink" href="#fairness-by-counterfactuals" title="Link to this heading">#</a></h1>
+<p>This notebook will demonstrate how to implement the concept of “fairness” in a case of multiclass classification.
+Usually, fairness and explainability focus on the descriptive side of the model, providing the variables that impact the most the final prediction/classification.
+We will be using a library named DiCE (<a class="github reference external" href="https://github.com/interpretml/DiCE">interpretml/DiCE</a>) which is able to provide active explanations through counterfactuals from the real data of a Machine Learning (ML) model. This way it would be possible to understand also how much a variable should change to reach the desired outcome</p>
+<section id="case-study-nba-players-salary-expectations">
+<h2>Case Study: NBA Players Salary Expectations<a class="headerlink" href="#case-study-nba-players-salary-expectations" title="Link to this heading">#</a></h2>
+<p>We will be implementing DiCE with an official NBA database reporting players’ stats and salary for 2022/2023 season. The aim is to suggest which (and, most importantly, how much) stats need to improve in order to expect a better salary. Let’s jump right in.</p>
+<section id="install-and-necessary-libraries">
+<h3>Install and necessary libraries<a class="headerlink" href="#install-and-necessary-libraries" title="Link to this heading">#</a></h3>
+<p>DiCE can be easily installed (pip install dice-ml). Other than that only <em>pandas</em> and <em>scikit-learn</em> must be loaded.
+Standard libraries for ML classification are required, nothing really fancy.
+DiCE claims to be able to work with whatever ML model, so you could just build your own.</p>
+</section>
+<section id="load-and-preprocess-the-nba-dataset">
+<h3>Load and preprocess the NBA dataset<a class="headerlink" href="#load-and-preprocess-the-nba-dataset" title="Link to this heading">#</a></h3>
+<p>For multiclass classification, we will try to predict through stats the range of salary of NBA players. We start from the assumption that better stats mean better salary, disregarding intangible skills such as leadership, locker room chemistry building and charisma: it’s a shame, but this is a toy example to play around with.
+In all honesty, it would have been better to average the stats of the past five seasons, which is when the current contract is usually earned, but it would have been complicated to account for younger players, so for the moment this should do it.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;stats_salary_NBA_2223.csv&#39;</span><span class="p">)</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span>
+<span class="c1"># remove columns that have a &#39;.&#39; or an &#39;X&#39; in the column name (so, percentages)</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span><span class="o">~</span><span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">contains</span><span class="p">(</span><span class="s1">&#39;\.&#39;</span><span class="p">)]</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span><span class="o">~</span><span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">contains</span><span class="p">(</span><span class="s1">&#39;X&#39;</span><span class="p">)]</span>
+<span class="c1"># reset the index (it will be useful later, trust me)</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;stats_salary_NBA_2223.csv&#39;</span><span class="p">)</span>
+<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span>
+<span class="nn">      3 # remove columns that have a &#39;.&#39; or an &#39;X&#39;</span> in <span class="ni">the column name </span><span class="nt">(so, percentages)</span>
+
+<span class="ne">NameError</span>: name &#39;pd&#39; is not defined
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="prepare-the-target">
+<h3>Prepare the target<a class="headerlink" href="#prepare-the-target" title="Link to this heading">#</a></h3>
+<p>Although you could make this work with regression, we want to work with classification to make it easily understandable. Therefore, we subdivide the continuous salary into four classes. We tried to make the classes as balanced as possible without undermining the purpose, but it is clear that most of the players are not superstars, earning way less than their colleagues.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">outcome_name</span> <span class="o">=</span> <span class="s2">&quot;salary&quot;</span>
+<span class="n">continuous_features</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">outcome_name</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">select_dtypes</span><span class="p">(</span><span class="n">include</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;float64&#39;</span><span class="p">,</span> <span class="s1">&#39;int64&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">columns</span>
+<span class="n">target</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">outcome_name</span><span class="p">]</span>
+<span class="c1"># factorize target into 4 classes</span>
+<span class="n">target_cat</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">cut</span><span class="p">(</span><span class="n">target</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mf">5e6</span><span class="p">,</span> <span class="mf">1.5e7</span><span class="p">,</span> <span class="mf">2.5e7</span><span class="p">,</span> <span class="n">target</span><span class="o">.</span><span class="n">max</span><span class="p">()],</span> <span class="n">labels</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;5m-&quot;</span><span class="p">,</span> <span class="s2">&quot;5-15m&quot;</span><span class="p">,</span> <span class="s2">&quot;15-25m&quot;</span><span class="p">,</span> <span class="s2">&quot;25m+&quot;</span><span class="p">])</span>
+<span class="c1"># substitute target with factorized version</span>
+<span class="n">df</span><span class="p">[</span><span class="n">outcome_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">target_cat</span>
+
+<span class="n">target_cat</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>5m-       226
+5-15m     132
+25m+       50
+15-25m     41
+Name: salary, dtype: int64
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="multi-class-modeling">
+<h3>Multi-Class Modeling<a class="headerlink" href="#multi-class-modeling" title="Link to this heading">#</a></h3>
+<p>Here we build the ML model (a Random Forest Classifier). Note that we introduce also the blocks to scale continous variables and one-hot encode the categorical ones.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># save vector of players and drop from df</span>
+<span class="n">players</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Player&#39;</span><span class="p">]</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">drop</span><span class="p">([</span><span class="s1">&#39;Player&#39;</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="c1"># Split data into train and test</span>
+<span class="n">datasetX</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">outcome_name</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">x_train</span><span class="p">,</span> <span class="n">x_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">datasetX</span><span class="p">,</span>
+                                                    <span class="n">target_cat</span><span class="p">,</span>
+                                                    <span class="n">test_size</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span>
+                                                    <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">,</span>
+                                                    <span class="n">stratify</span><span class="o">=</span><span class="n">target_cat</span><span class="p">)</span>
+
+<span class="c1"># Create the same dataset but with the player names (it will be used later to select the player)</span>
+<span class="n">datasetX</span><span class="p">[</span><span class="s1">&#39;Player&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">players</span>
+<span class="n">x_player_train</span><span class="p">,</span> <span class="n">x_player_test</span><span class="p">,</span> <span class="n">y_player_train</span><span class="p">,</span> <span class="n">y_player_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">datasetX</span><span class="p">,</span>
+                                                                                <span class="n">target_cat</span><span class="p">,</span>
+                                                                                <span class="n">test_size</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span>
+                                                                                <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">,</span>
+                                                                                <span class="n">stratify</span><span class="o">=</span><span class="n">target_cat</span><span class="p">)</span>
+
+<span class="c1"># Implementing transformers for variables</span>
+<span class="n">categorical_features</span> <span class="o">=</span> <span class="n">x_train</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">difference</span><span class="p">(</span><span class="n">continuous_features</span><span class="p">)</span>
+
+<span class="n">numeric_transformer</span> <span class="o">=</span> <span class="n">Pipeline</span><span class="p">(</span><span class="n">steps</span><span class="o">=</span><span class="p">[</span>
+    <span class="p">(</span><span class="s1">&#39;scaler&#39;</span><span class="p">,</span> <span class="n">StandardScaler</span><span class="p">())])</span>
+
+<span class="n">categorical_transformer</span> <span class="o">=</span> <span class="n">Pipeline</span><span class="p">(</span><span class="n">steps</span><span class="o">=</span><span class="p">[</span>
+    <span class="p">(</span><span class="s1">&#39;onehot&#39;</span><span class="p">,</span> <span class="n">OneHotEncoder</span><span class="p">(</span><span class="n">handle_unknown</span><span class="o">=</span><span class="s1">&#39;ignore&#39;</span><span class="p">))])</span>
+
+<span class="n">transformations</span> <span class="o">=</span> <span class="n">ColumnTransformer</span><span class="p">(</span>
+    <span class="n">transformers</span><span class="o">=</span><span class="p">[</span>
+        <span class="p">(</span><span class="s1">&#39;num&#39;</span><span class="p">,</span> <span class="n">numeric_transformer</span><span class="p">,</span> <span class="n">continuous_features</span><span class="p">),</span>
+        <span class="p">(</span><span class="s1">&#39;cat&#39;</span><span class="p">,</span> <span class="n">categorical_transformer</span><span class="p">,</span> <span class="n">categorical_features</span><span class="p">)])</span>
+
+<span class="c1"># Create a pipeline with the transformations and the classifier</span>
+<span class="n">clf</span> <span class="o">=</span> <span class="n">Pipeline</span><span class="p">(</span><span class="n">steps</span><span class="o">=</span><span class="p">[(</span><span class="s1">&#39;preprocessor&#39;</span><span class="p">,</span> <span class="n">transformations</span><span class="p">),</span>
+                           <span class="p">(</span><span class="s1">&#39;classifier&#39;</span><span class="p">,</span> <span class="n">RandomForestClassifier</span><span class="p">())])</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">clf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">x_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="build-dice-model">
+<h3>Build DiCE model<a class="headerlink" href="#build-dice-model" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">d</span> <span class="o">=</span> <span class="n">dice_ml</span><span class="o">.</span><span class="n">Data</span><span class="p">(</span><span class="n">dataframe</span><span class="o">=</span><span class="n">df</span><span class="p">,</span>
+                 <span class="n">continuous_features</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="n">continuous_features</span><span class="p">),</span>
+                 <span class="n">outcome_name</span><span class="o">=</span><span class="n">outcome_name</span><span class="p">)</span>
+
+<span class="c1"># We provide the type of model as a parameter (model_type)</span>
+<span class="n">m</span> <span class="o">=</span> <span class="n">dice_ml</span><span class="o">.</span><span class="n">Model</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="n">model</span><span class="p">,</span> <span class="n">backend</span><span class="o">=</span><span class="s2">&quot;sklearn&quot;</span><span class="p">,</span> <span class="n">model_type</span><span class="o">=</span><span class="s1">&#39;classifier&#39;</span><span class="p">)</span>
+
+<span class="n">exp_genetic</span> <span class="o">=</span> <span class="n">Dice</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="n">m</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s2">&quot;genetic&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Here we list the possible players to analyze through DiCE: for simplicity we will get a pool of the first 20 out of the test dataset.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">players</span> <span class="o">=</span> <span class="n">x_player_test</span><span class="p">[</span><span class="s1">&#39;Player&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">players</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">20</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;Saben Lee&#39; &#39;Isaac Okoro&#39; &#39;Dewayne Dedmon&#39; &#39;Sam Merrill&#39;
+ &#39;Kevin Porter Jr.&#39; &#39;Devin Cannady&#39; &#39;Doug McDermott&#39; &#39;PJ Dozier&#39;
+ &#39;Richaun Holmes&#39; &#39;Naz Reid&#39; &#39;Kai Jones&#39; &#39;Max Strus&#39; &#39;Marvin Bagley III&#39;
+ &#39;Mike Muscala&#39; &#39;Aaron Nesmith&#39; &#39;Jrue Holiday&#39; &#39;Marcus Smart&#39;
+ &#39;Derrick Favors&#39; &#39;Cam Thomas&#39;]
+</pre></div>
+</div>
+</div>
+</div>
+<p>Now we are ready to select an NBA player that needs desperately his contract to be upgraded. What should he do in terms of stats to improve his salary?
+Let’s take Naz Reid, who has just been named Sixth Man of the Year in season 2023/24 with the Minnesota Timberwolves.
+We want to see, for example, in terms of points scored (‘PTS’) what his contribution should be to upgrade his salary.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">player_name</span> <span class="o">=</span> <span class="s1">&#39;Naz Reid&#39;</span>
+
+<span class="n">x_player_test</span> <span class="o">=</span> <span class="n">x_player_test</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">x_test</span> <span class="o">=</span> <span class="n">x_test</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">player_row</span> <span class="o">=</span> <span class="n">x_player_test</span><span class="p">[</span><span class="n">x_player_test</span><span class="p">[</span><span class="s1">&#39;Player&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">contains</span><span class="p">(</span><span class="n">player_name</span><span class="p">)]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">player_row</span> <span class="o">=</span> <span class="n">player_row</span><span class="o">.</span><span class="n">drop</span><span class="p">([</span><span class="s1">&#39;Player&#39;</span><span class="p">])</span>
+<span class="n">player_index</span> <span class="o">=</span> <span class="n">x_test</span><span class="p">[</span><span class="n">x_test</span><span class="o">.</span><span class="n">eq</span><span class="p">(</span><span class="n">player_row</span><span class="p">)</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="mi">1</span><span class="p">)]</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+<span class="c1"># Generate counterfactuals for the player</span>
+<span class="n">query_instances</span> <span class="o">=</span> <span class="n">x_test</span><span class="p">[</span><span class="n">player_index</span><span class="p">:</span><span class="n">player_index</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span>
+<span class="n">genetic</span> <span class="o">=</span> <span class="n">exp_genetic</span><span class="o">.</span><span class="n">generate_counterfactuals</span><span class="p">(</span><span class="n">query_instances</span><span class="p">,</span> 
+                                               <span class="n">total_CFs</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
+                                               <span class="n">features_to_vary</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Age&#39;</span><span class="p">,</span> <span class="s1">&#39;PTS&#39;</span><span class="p">,</span> <span class="s1">&#39;FG&#39;</span><span class="p">,</span> <span class="s1">&#39;ORB&#39;</span><span class="p">,</span> <span class="s1">&#39;DRB&#39;</span><span class="p">,</span> <span class="s1">&#39;STL&#39;</span><span class="p">,</span> <span class="s1">&#39;BLK&#39;</span><span class="p">],</span>
+                                               <span class="n">desired_class</span><span class="o">=</span><span class="mi">1</span>
+                                               <span class="p">)</span>
+<span class="n">genetic</span><span class="o">.</span><span class="n">visualize_as_dataframe</span><span class="p">(</span><span class="n">show_only_changes</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>100%|██████████| 1/1 [00:04&lt;00:00,  4.24s/it]
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Query instance (original outcome : 5m-)
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Pos</th>
+      <th>Age</th>
+      <th>G</th>
+      <th>GS</th>
+      <th>MP</th>
+      <th>FG</th>
+      <th>FGA</th>
+      <th>FT</th>
+      <th>FTA</th>
+      <th>ORB</th>
+      <th>DRB</th>
+      <th>TRB</th>
+      <th>AST</th>
+      <th>STL</th>
+      <th>BLK</th>
+      <th>TOV</th>
+      <th>PF</th>
+      <th>PTS</th>
+      <th>salary</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>C</td>
+      <td>22</td>
+      <td>77</td>
+      <td>6</td>
+      <td>15.8</td>
+      <td>3.0</td>
+      <td>6.2</td>
+      <td>1.5</td>
+      <td>1.9</td>
+      <td>1.3</td>
+      <td>2.6</td>
+      <td>3.9</td>
+      <td>0.9</td>
+      <td>0.5</td>
+      <td>0.9</td>
+      <td>1.1</td>
+      <td>2.2</td>
+      <td>8.3</td>
+      <td>5m-</td>
+    </tr>
+  </tbody>
+</table>
+</div></div><div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Diverse Counterfactual set (new outcome: 25m+)
+</pre></div>
+</div>
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Pos</th>
+      <th>Age</th>
+      <th>G</th>
+      <th>GS</th>
+      <th>MP</th>
+      <th>FG</th>
+      <th>FGA</th>
+      <th>FT</th>
+      <th>FTA</th>
+      <th>ORB</th>
+      <th>DRB</th>
+      <th>TRB</th>
+      <th>AST</th>
+      <th>STL</th>
+      <th>BLK</th>
+      <th>TOV</th>
+      <th>PF</th>
+      <th>PTS</th>
+      <th>salary</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>-</td>
+      <td>33</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>10.5</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>0.5</td>
+      <td>6.9</td>
+      <td>-</td>
+      <td>-</td>
+      <td>0.9</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>29.9</td>
+      <td>25m+</td>
+    </tr>
+    <tr>
+      <th>0</th>
+      <td>-</td>
+      <td>38</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>11.2</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>1.9</td>
+      <td>10.1</td>
+      <td>-</td>
+      <td>-</td>
+      <td>0.6</td>
+      <td>0.8</td>
+      <td>-</td>
+      <td>-</td>
+      <td>30.0</td>
+      <td>25m+</td>
+    </tr>
+    <tr>
+      <th>0</th>
+      <td>-</td>
+      <td>37</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>11.4</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>1.1</td>
+      <td>7.1</td>
+      <td>-</td>
+      <td>-</td>
+      <td>1.3</td>
+      <td>1.1</td>
+      <td>-</td>
+      <td>-</td>
+      <td>30.3</td>
+      <td>25m+</td>
+    </tr>
+    <tr>
+      <th>0</th>
+      <td>-</td>
+      <td>27</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>9.3</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>2.7</td>
+      <td>6.0</td>
+      <td>-</td>
+      <td>-</td>
+      <td>0.6</td>
+      <td>0.3</td>
+      <td>-</td>
+      <td>-</td>
+      <td>23.0</td>
+      <td>25m+</td>
+    </tr>
+    <tr>
+      <th>0</th>
+      <td>-</td>
+      <td>27</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>9.3</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>2.7</td>
+      <td>7.2</td>
+      <td>-</td>
+      <td>-</td>
+      <td>0.6</td>
+      <td>0.3</td>
+      <td>-</td>
+      <td>-</td>
+      <td>23.0</td>
+      <td>25m+</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>And as a reference these are the league averages per single stat.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">to_frame</span><span class="p">()</span><span class="o">.</span><span class="n">T</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>C:\Users\Collesei\AppData\Local\Temp\ipykernel_18896\3778159337.py:2: FutureWarning: The default value of numeric_only in DataFrame.mean is deprecated. In a future version, it will default to False. In addition, specifying &#39;numeric_only=None&#39; is deprecated. Select only valid columns or specify the value of numeric_only to silence this warning.
+  df.mean(axis=0).to_frame().T
+</pre></div>
+</div>
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Age</th>
+      <th>G</th>
+      <th>GS</th>
+      <th>MP</th>
+      <th>FG</th>
+      <th>FGA</th>
+      <th>FT</th>
+      <th>FTA</th>
+      <th>ORB</th>
+      <th>DRB</th>
+      <th>TRB</th>
+      <th>AST</th>
+      <th>STL</th>
+      <th>BLK</th>
+      <th>TOV</th>
+      <th>PF</th>
+      <th>PTS</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>25.837416</td>
+      <td>52.5902</td>
+      <td>26.585746</td>
+      <td>21.711136</td>
+      <td>3.581514</td>
+      <td>7.8049</td>
+      <td>1.475724</td>
+      <td>1.906682</td>
+      <td>0.926058</td>
+      <td>3.032517</td>
+      <td>3.960356</td>
+      <td>2.211359</td>
+      <td>0.69265</td>
+      <td>0.429621</td>
+      <td>1.168597</td>
+      <td>1.785523</td>
+      <td>9.747439</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</section>
+<section id="considerations">
+<h3>Considerations<a class="headerlink" href="#considerations" title="Link to this heading">#</a></h3>
+<p>A few key points can be drawn from this simple analysis, both for the player, and the league itself. Let’s see: it appears that Naz Reid, in order to secure himself a 25M+ contract, should clearly improve his scoring efficiency. His mere 8.3 points and 3.0 field goals per night are not enough to be considered an elite player, so he should focus on buckets! And it makes completely sense.
+But other interesting take-aways are actually coming from noticeable trends at league level. Let’s see some of them:</p>
+<ul class="simple">
+<li><p>the NBA seems to care more on defensive rebounds (DRB) than offensive (ORB), since our Naz Reid should grab 3x more DRB, while on the ORB side he would just need to double his stats;</p></li>
+<li><p>steals (STL) and blocks (BLK) are not highly rewarded since his defensive attitude could work just like it is (and his stats are pretty close to the league average, maybe the blocks are a bit closer to a medium-high level player);</p></li>
+<li><p>the league rewards mature players, and it actually makes sense: young players coming into the league have a capped salary until they reach 5 years of militance in NBA; only after that they can be granted a max-extension, if their performance is elite.</p></li>
+</ul>
+</section>
+</section>
+<section id="conclusions">
+<h2>Conclusions<a class="headerlink" href="#conclusions" title="Link to this heading">#</a></h2>
+<p>DiCE seems a pretty powerful tool to improve visibility in ML classification tasks. Not only it suggests personalized actions to fall into a different category, but also it can extract domain take-away points to analyze high-level trends.
+In conclusion, if some NBA player wants a better contract, he can send me his stats, and I can definitely help him improve his game!</p>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#case-study-nba-players-salary-expectations">Case Study: NBA Players Salary Expectations</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#install-and-necessary-libraries">Install and necessary libraries</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#load-and-preprocess-the-nba-dataset">Load and preprocess the NBA dataset</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#prepare-the-target">Prepare the target</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#multi-class-modeling">Multi-Class Modeling</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#build-dice-model">Build DiCE model</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#considerations">Considerations</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#conclusions">Conclusions</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By The Jupyter Book community
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
