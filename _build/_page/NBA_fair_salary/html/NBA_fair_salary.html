@@ -32,7 +32,7 @@
     <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
     <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=87e54e7c" />
   
@@ -388,165 +388,86 @@ In all honesty, it would have been better to average the stats of the past five 
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_html"><div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">FileNotFoundError</span><span class="g g-Whitespace">                         </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;stats_salary_NBA_2223.csv&#39;</span><span class="p">)</span>
+<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span>
+<span class="nn">      3 # remove columns that have a &#39;.&#39; or an &#39;X&#39;</span> in <span class="ni">the column name </span><span class="nt">(so, percentages)</span>
 
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
+<span class="nn">File ~/.python/current/lib/python3.10/site-packages/pandas/util/_decorators.py:211,</span> in <span class="ni">deprecate_kwarg.&lt;locals&gt;._deprecate_kwarg.&lt;locals&gt;.wrapper</span><span class="nt">(*args, **kwargs)</span>
+<span class="g g-Whitespace">    </span><span class="mi">209</span>     <span class="k">else</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">210</span>         <span class="n">kwargs</span><span class="p">[</span><span class="n">new_arg_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">new_arg_value</span>
+<span class="ne">--&gt; </span><span class="mi">211</span> <span class="k">return</span> <span class="n">func</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>Player</th>
-      <th>Pos</th>
-      <th>Age</th>
-      <th>G</th>
-      <th>GS</th>
-      <th>MP</th>
-      <th>FG</th>
-      <th>FGA</th>
-      <th>FT</th>
-      <th>FTA</th>
-      <th>ORB</th>
-      <th>DRB</th>
-      <th>TRB</th>
-      <th>AST</th>
-      <th>STL</th>
-      <th>BLK</th>
-      <th>TOV</th>
-      <th>PF</th>
-      <th>PTS</th>
-      <th>salary</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>Aaron Gordon</td>
-      <td>PF</td>
-      <td>26</td>
-      <td>75</td>
-      <td>75</td>
-      <td>31.7</td>
-      <td>5.8</td>
-      <td>11.1</td>
-      <td>2.3</td>
-      <td>3.1</td>
-      <td>1.7</td>
-      <td>4.2</td>
-      <td>5.9</td>
-      <td>2.5</td>
-      <td>0.6</td>
-      <td>0.6</td>
-      <td>1.8</td>
-      <td>2.0</td>
-      <td>15.0</td>
-      <td>19690909.0</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>Aaron Holiday</td>
-      <td>PG</td>
-      <td>25</td>
-      <td>63</td>
-      <td>15</td>
-      <td>16.2</td>
-      <td>2.4</td>
-      <td>5.4</td>
-      <td>0.9</td>
-      <td>1.1</td>
-      <td>0.4</td>
-      <td>1.6</td>
-      <td>1.9</td>
-      <td>2.4</td>
-      <td>0.7</td>
-      <td>0.1</td>
-      <td>1.1</td>
-      <td>1.5</td>
-      <td>6.3</td>
-      <td>1836090.0</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>Aaron Nesmith</td>
-      <td>SF</td>
-      <td>22</td>
-      <td>52</td>
-      <td>3</td>
-      <td>11.0</td>
-      <td>1.4</td>
-      <td>3.5</td>
-      <td>0.4</td>
-      <td>0.5</td>
-      <td>0.3</td>
-      <td>1.4</td>
-      <td>1.7</td>
-      <td>0.4</td>
-      <td>0.4</td>
-      <td>0.1</td>
-      <td>0.6</td>
-      <td>1.3</td>
-      <td>3.8</td>
-      <td>3804360.0</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>Aaron Wiggins</td>
-      <td>SG</td>
-      <td>23</td>
-      <td>50</td>
-      <td>35</td>
-      <td>24.2</td>
-      <td>3.1</td>
-      <td>6.7</td>
-      <td>1.2</td>
-      <td>1.7</td>
-      <td>1.0</td>
-      <td>2.5</td>
-      <td>3.6</td>
-      <td>1.4</td>
-      <td>0.6</td>
-      <td>0.2</td>
-      <td>1.1</td>
-      <td>1.9</td>
-      <td>8.3</td>
-      <td>1563518.0</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>Admiral Schofield</td>
-      <td>SF</td>
-      <td>24</td>
-      <td>38</td>
-      <td>1</td>
-      <td>12.3</td>
-      <td>1.4</td>
-      <td>3.4</td>
-      <td>0.3</td>
-      <td>0.4</td>
-      <td>0.4</td>
-      <td>1.9</td>
-      <td>2.3</td>
-      <td>0.7</td>
-      <td>0.1</td>
-      <td>0.1</td>
-      <td>0.6</td>
-      <td>1.5</td>
-      <td>3.8</td>
-      <td>506508.0</td>
-    </tr>
-  </tbody>
-</table>
-</div></div></div>
+<span class="nn">File ~/.python/current/lib/python3.10/site-packages/pandas/util/_decorators.py:331,</span> in <span class="ni">deprecate_nonkeyword_arguments.&lt;locals&gt;.decorate.&lt;locals&gt;.wrapper</span><span class="nt">(*args, **kwargs)</span>
+<span class="g g-Whitespace">    </span><span class="mi">325</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">args</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">num_allow_args</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">326</span>     <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">327</span>         <span class="n">msg</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">arguments</span><span class="o">=</span><span class="n">_format_argument_list</span><span class="p">(</span><span class="n">allow_args</span><span class="p">)),</span>
+<span class="g g-Whitespace">    </span><span class="mi">328</span>         <span class="ne">FutureWarning</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">329</span>         <span class="n">stacklevel</span><span class="o">=</span><span class="n">find_stack_level</span><span class="p">(),</span>
+<span class="g g-Whitespace">    </span><span class="mi">330</span>     <span class="p">)</span>
+<span class="ne">--&gt; </span><span class="mi">331</span> <span class="k">return</span> <span class="n">func</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+<span class="nn">File ~/.python/current/lib/python3.10/site-packages/pandas/io/parsers/readers.py:950,</span> in <span class="ni">read_csv</span><span class="nt">(filepath_or_buffer, sep, delimiter, header, names, index_col, usecols, squeeze, prefix, mangle_dupe_cols, dtype, engine, converters, true_values, false_values, skipinitialspace, skiprows, skipfooter, nrows, na_values, keep_default_na, na_filter, verbose, skip_blank_lines, parse_dates, infer_datetime_format, keep_date_col, date_parser, dayfirst, cache_dates, iterator, chunksize, compression, thousands, decimal, lineterminator, quotechar, quoting, doublequote, escapechar, comment, encoding, encoding_errors, dialect, error_bad_lines, warn_bad_lines, on_bad_lines, delim_whitespace, low_memory, memory_map, float_precision, storage_options)</span>
+<span class="g g-Whitespace">    </span><span class="mi">935</span> <span class="n">kwds_defaults</span> <span class="o">=</span> <span class="n">_refine_defaults_read</span><span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">936</span>     <span class="n">dialect</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">937</span>     <span class="n">delimiter</span><span class="p">,</span>
+   <span class="p">(</span><span class="o">...</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">946</span>     <span class="n">defaults</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;delimiter&quot;</span><span class="p">:</span> <span class="s2">&quot;,&quot;</span><span class="p">},</span>
+<span class="g g-Whitespace">    </span><span class="mi">947</span> <span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">948</span> <span class="n">kwds</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">kwds_defaults</span><span class="p">)</span>
+<span class="ne">--&gt; </span><span class="mi">950</span> <span class="k">return</span> <span class="n">_read</span><span class="p">(</span><span class="n">filepath_or_buffer</span><span class="p">,</span> <span class="n">kwds</span><span class="p">)</span>
+
+<span class="nn">File ~/.python/current/lib/python3.10/site-packages/pandas/io/parsers/readers.py:605,</span> in <span class="ni">_read</span><span class="nt">(filepath_or_buffer, kwds)</span>
+<span class="g g-Whitespace">    </span><span class="mi">602</span> <span class="n">_validate_names</span><span class="p">(</span><span class="n">kwds</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;names&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">))</span>
+<span class="g g-Whitespace">    </span><span class="mi">604</span> <span class="c1"># Create the parser.</span>
+<span class="ne">--&gt; </span><span class="mi">605</span> <span class="n">parser</span> <span class="o">=</span> <span class="n">TextFileReader</span><span class="p">(</span><span class="n">filepath_or_buffer</span><span class="p">,</span> <span class="o">**</span><span class="n">kwds</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">607</span> <span class="k">if</span> <span class="n">chunksize</span> <span class="ow">or</span> <span class="n">iterator</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">608</span>     <span class="k">return</span> <span class="n">parser</span>
+
+<span class="nn">File ~/.python/current/lib/python3.10/site-packages/pandas/io/parsers/readers.py:1442,</span> in <span class="ni">TextFileReader.__init__</span><span class="nt">(self, f, engine, **kwds)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1439</span>     <span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="p">[</span><span class="s2">&quot;has_index_names&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">kwds</span><span class="p">[</span><span class="s2">&quot;has_index_names&quot;</span><span class="p">]</span>
+<span class="g g-Whitespace">   </span><span class="mi">1441</span> <span class="bp">self</span><span class="o">.</span><span class="n">handles</span><span class="p">:</span> <span class="n">IOHandles</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="ne">-&gt; </span><span class="mi">1442</span> <span class="bp">self</span><span class="o">.</span><span class="n">_engine</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_make_engine</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">engine</span><span class="p">)</span>
+
+<span class="nn">File ~/.python/current/lib/python3.10/site-packages/pandas/io/parsers/readers.py:1735,</span> in <span class="ni">TextFileReader._make_engine</span><span class="nt">(self, f, engine)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1733</span>     <span class="k">if</span> <span class="s2">&quot;b&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">mode</span><span class="p">:</span>
+<span class="g g-Whitespace">   </span><span class="mi">1734</span>         <span class="n">mode</span> <span class="o">+=</span> <span class="s2">&quot;b&quot;</span>
+<span class="ne">-&gt; </span><span class="mi">1735</span> <span class="bp">self</span><span class="o">.</span><span class="n">handles</span> <span class="o">=</span> <span class="n">get_handle</span><span class="p">(</span>
+<span class="g g-Whitespace">   </span><span class="mi">1736</span>     <span class="n">f</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1737</span>     <span class="n">mode</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1738</span>     <span class="n">encoding</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;encoding&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span>
+<span class="g g-Whitespace">   </span><span class="mi">1739</span>     <span class="n">compression</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;compression&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span>
+<span class="g g-Whitespace">   </span><span class="mi">1740</span>     <span class="n">memory_map</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;memory_map&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">),</span>
+<span class="g g-Whitespace">   </span><span class="mi">1741</span>     <span class="n">is_text</span><span class="o">=</span><span class="n">is_text</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1742</span>     <span class="n">errors</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;encoding_errors&quot;</span><span class="p">,</span> <span class="s2">&quot;strict&quot;</span><span class="p">),</span>
+<span class="g g-Whitespace">   </span><span class="mi">1743</span>     <span class="n">storage_options</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;storage_options&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span>
+<span class="g g-Whitespace">   </span><span class="mi">1744</span> <span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1745</span> <span class="k">assert</span> <span class="bp">self</span><span class="o">.</span><span class="n">handles</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+<span class="g g-Whitespace">   </span><span class="mi">1746</span> <span class="n">f</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">handles</span><span class="o">.</span><span class="n">handle</span>
+
+<span class="nn">File ~/.python/current/lib/python3.10/site-packages/pandas/io/common.py:856,</span> in <span class="ni">get_handle</span><span class="nt">(path_or_buf, mode, encoding, compression, memory_map, is_text, errors, storage_options)</span>
+<span class="g g-Whitespace">    </span><span class="mi">851</span> <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">handle</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+<span class="g g-Whitespace">    </span><span class="mi">852</span>     <span class="c1"># Check whether the filename is to be opened in binary mode.</span>
+<span class="g g-Whitespace">    </span><span class="mi">853</span>     <span class="c1"># Binary mode does not support &#39;encoding&#39; and &#39;newline&#39;.</span>
+<span class="g g-Whitespace">    </span><span class="mi">854</span>     <span class="k">if</span> <span class="n">ioargs</span><span class="o">.</span><span class="n">encoding</span> <span class="ow">and</span> <span class="s2">&quot;b&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">ioargs</span><span class="o">.</span><span class="n">mode</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">855</span>         <span class="c1"># Encoding</span>
+<span class="ne">--&gt; </span><span class="mi">856</span>         <span class="n">handle</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">857</span>             <span class="n">handle</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">858</span>             <span class="n">ioargs</span><span class="o">.</span><span class="n">mode</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">859</span>             <span class="n">encoding</span><span class="o">=</span><span class="n">ioargs</span><span class="o">.</span><span class="n">encoding</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">860</span>             <span class="n">errors</span><span class="o">=</span><span class="n">errors</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">861</span>             <span class="n">newline</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">862</span>         <span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">863</span>     <span class="k">else</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">864</span>         <span class="c1"># Binary mode</span>
+<span class="g g-Whitespace">    </span><span class="mi">865</span>         <span class="n">handle</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">handle</span><span class="p">,</span> <span class="n">ioargs</span><span class="o">.</span><span class="n">mode</span><span class="p">)</span>
+
+<span class="ne">FileNotFoundError</span>: [Errno 2] No such file or directory: &#39;stats_salary_NBA_2223.csv&#39;
+</pre></div>
+</div>
+</div>
 </div>
 </section>
 <section id="prepare-the-target">
@@ -676,7 +597,7 @@ We want to see, for example, in terms of points scored (‘PTS’) what his cont
 <span class="n">query_instances</span> <span class="o">=</span> <span class="n">x_test</span><span class="p">[</span><span class="n">player_index</span><span class="p">:</span><span class="n">player_index</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span>
 <span class="n">genetic</span> <span class="o">=</span> <span class="n">exp_genetic</span><span class="o">.</span><span class="n">generate_counterfactuals</span><span class="p">(</span><span class="n">query_instances</span><span class="p">,</span> 
                                                <span class="n">total_CFs</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
-                                               <span class="n">features_to_vary</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Age&#39;</span><span class="p">,</span> <span class="s1">&#39;PTS&#39;</span><span class="p">,</span> <span class="s1">&#39;ORB&#39;</span><span class="p">,</span> <span class="s1">&#39;DRB&#39;</span><span class="p">,</span> <span class="s1">&#39;STL&#39;</span><span class="p">,</span> <span class="s1">&#39;BLK&#39;</span><span class="p">],</span>
+                                               <span class="c1">#features_to_vary=[&#39;Age&#39;, &#39;PTS&#39;, &#39;ORB&#39;, &#39;DRB&#39;, &#39;STL&#39;, &#39;BLK&#39;],</span>
                                                <span class="n">desired_class</span><span class="o">=</span><span class="mi">1</span>
                                                <span class="p">)</span>
 <span class="n">genetic</span><span class="o">.</span><span class="n">visualize_as_dataframe</span><span class="p">(</span><span class="n">show_only_changes</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
@@ -684,326 +605,238 @@ We want to see, for example, in terms of points scored (‘PTS’) what his cont
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  0%|                                                                                                                                                                                               | 0/1 [00:00&lt;?, ?it/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  0%|          | 0/1 [00:00&lt;?, ?it/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  0%|                                                                                                                                                                                               | 0/1 [00:29&lt;?, ?it/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>100%|██████████| 1/1 [00:16&lt;00:00, 16.02s/it]
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Query instance (original outcome : 5m-)
 </pre></div>
 </div>
 <div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>
 </pre></div>
 </div>
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">KeyboardInterrupt</span><span class="g g-Whitespace">                         </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">7</span><span class="p">],</span> <span class="n">line</span> <span class="mi">11</span>
-<span class="g g-Whitespace">      </span><span class="mi">9</span> <span class="c1"># Generate counterfactuals for the player</span>
-<span class="g g-Whitespace">     </span><span class="mi">10</span> <span class="n">query_instances</span> <span class="o">=</span> <span class="n">x_test</span><span class="p">[</span><span class="n">player_index</span><span class="p">:</span><span class="n">player_index</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span>
-<span class="ne">---&gt; </span><span class="mi">11</span> <span class="n">genetic</span> <span class="o">=</span> <span class="n">exp_genetic</span><span class="o">.</span><span class="n">generate_counterfactuals</span><span class="p">(</span><span class="n">query_instances</span><span class="p">,</span> 
-<span class="g g-Whitespace">     </span><span class="mi">12</span>                                                <span class="n">total_CFs</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
-<span class="g g-Whitespace">     </span><span class="mi">13</span>                                                <span class="n">features_to_vary</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Age&#39;</span><span class="p">,</span> <span class="s1">&#39;PTS&#39;</span><span class="p">,</span> <span class="s1">&#39;ORB&#39;</span><span class="p">,</span> <span class="s1">&#39;DRB&#39;</span><span class="p">,</span> <span class="s1">&#39;STL&#39;</span><span class="p">,</span> <span class="s1">&#39;BLK&#39;</span><span class="p">],</span>
-<span class="g g-Whitespace">     </span><span class="mi">14</span>                                                <span class="n">desired_class</span><span class="o">=</span><span class="mi">1</span>
-<span class="g g-Whitespace">     </span><span class="mi">15</span>                                                <span class="p">)</span>
-<span class="g g-Whitespace">     </span><span class="mi">16</span> <span class="n">genetic</span><span class="o">.</span><span class="n">visualize_as_dataframe</span><span class="p">(</span><span class="n">show_only_changes</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
 
-<span class="nn">File ~/.python/current/lib/python3.10/site-packages/dice_ml/explainer_interfaces/explainer_base.py:186,</span> in <span class="ni">ExplainerBase.generate_counterfactuals</span><span class="nt">(self, query_instances, total_CFs, desired_class, desired_range, permitted_range, features_to_vary, stopping_threshold, posthoc_sparsity_param, proximity_weight, sparsity_weight, diversity_weight, categorical_penalty, posthoc_sparsity_algorithm, verbose, **kwargs)</span>
-<span class="g g-Whitespace">    </span><span class="mi">184</span> <span class="k">for</span> <span class="n">query_instance</span> <span class="ow">in</span> <span class="n">tqdm</span><span class="p">(</span><span class="n">query_instances_list</span><span class="p">):</span>
-<span class="g g-Whitespace">    </span><span class="mi">185</span>     <span class="bp">self</span><span class="o">.</span><span class="n">data_interface</span><span class="o">.</span><span class="n">set_continuous_feature_indexes</span><span class="p">(</span><span class="n">query_instance</span><span class="p">)</span>
-<span class="ne">--&gt; </span><span class="mi">186</span>     <span class="n">res</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_generate_counterfactuals</span><span class="p">(</span>
-<span class="g g-Whitespace">    </span><span class="mi">187</span>         <span class="n">query_instance</span><span class="p">,</span> <span class="n">total_CFs</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">188</span>         <span class="n">desired_class</span><span class="o">=</span><span class="n">desired_class</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">189</span>         <span class="n">desired_range</span><span class="o">=</span><span class="n">desired_range</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">190</span>         <span class="n">permitted_range</span><span class="o">=</span><span class="n">permitted_range</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">191</span>         <span class="n">features_to_vary</span><span class="o">=</span><span class="n">features_to_vary</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">192</span>         <span class="n">stopping_threshold</span><span class="o">=</span><span class="n">stopping_threshold</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">193</span>         <span class="n">posthoc_sparsity_param</span><span class="o">=</span><span class="n">posthoc_sparsity_param</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">194</span>         <span class="n">posthoc_sparsity_algorithm</span><span class="o">=</span><span class="n">posthoc_sparsity_algorithm</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">195</span>         <span class="n">verbose</span><span class="o">=</span><span class="n">verbose</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">196</span>         <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">197</span>     <span class="n">res</span><span class="o">.</span><span class="n">test_instance_df</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data_interface</span><span class="o">.</span><span class="n">ensure_consistent_type</span><span class="p">(</span>
-<span class="g g-Whitespace">    </span><span class="mi">198</span>             <span class="n">res</span><span class="o">.</span><span class="n">test_instance_df</span><span class="p">,</span> <span class="n">query_instance</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">199</span>     <span class="k">if</span> <span class="n">res</span><span class="o">.</span><span class="n">final_cfs_df</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">res</span><span class="o">.</span><span class="n">final_cfs_df</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
 
-<span class="nn">File ~/.python/current/lib/python3.10/site-packages/dice_ml/explainer_interfaces/dice_genetic.py:287,</span> in <span class="ni">DiceGenetic._generate_counterfactuals</span><span class="nt">(self, query_instance, total_CFs, initialization, desired_range, desired_class, proximity_weight, sparsity_weight, diversity_weight, categorical_penalty, algorithm, features_to_vary, permitted_range, yloss_type, diversity_loss_type, feature_weights, stopping_threshold, posthoc_sparsity_param, posthoc_sparsity_algorithm, maxiterations, thresh, verbose)</span>
-<span class="g g-Whitespace">    </span><span class="mi">284</span>     <span class="k">if</span> <span class="n">col</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">query_instance_df_dummies</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
-<span class="g g-Whitespace">    </span><span class="mi">285</span>         <span class="n">query_instance_df_dummies</span><span class="p">[</span><span class="n">col</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
-<span class="ne">--&gt; </span><span class="mi">287</span> <span class="bp">self</span><span class="o">.</span><span class="n">do_param_initializations</span><span class="p">(</span><span class="n">total_CFs</span><span class="p">,</span> <span class="n">initialization</span><span class="p">,</span> <span class="n">desired_range</span><span class="p">,</span> <span class="n">desired_class</span><span class="p">,</span> <span class="n">query_instance</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">288</span>                               <span class="n">query_instance_df_dummies</span><span class="p">,</span> <span class="n">algorithm</span><span class="p">,</span> <span class="n">features_to_vary</span><span class="p">,</span> <span class="n">permitted_range</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">289</span>                               <span class="n">yloss_type</span><span class="p">,</span> <span class="n">diversity_loss_type</span><span class="p">,</span> <span class="n">feature_weights</span><span class="p">,</span> <span class="n">proximity_weight</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">290</span>                               <span class="n">sparsity_weight</span><span class="p">,</span> <span class="n">diversity_weight</span><span class="p">,</span> <span class="n">categorical_penalty</span><span class="p">,</span> <span class="n">verbose</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">292</span> <span class="n">query_instance_df</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">find_counterfactuals</span><span class="p">(</span><span class="n">query_instance</span><span class="p">,</span> <span class="n">desired_range</span><span class="p">,</span> <span class="n">desired_class</span><span class="p">,</span> <span class="n">features_to_vary</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">293</span>                                               <span class="n">maxiterations</span><span class="p">,</span> <span class="n">thresh</span><span class="p">,</span> <span class="n">verbose</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">295</span> <span class="n">desired_class_param</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">decode_model_output</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">target_cf_class</span><span class="p">[</span><span class="mi">0</span><span class="p">]))[</span><span class="mi">0</span><span class="p">]</span> \
-<span class="g g-Whitespace">    </span><span class="mi">296</span>     <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;target_cf_class&#39;</span><span class="p">)</span> <span class="k">else</span> <span class="n">desired_class</span>
-
-<span class="nn">File ~/.python/current/lib/python3.10/site-packages/dice_ml/explainer_interfaces/dice_genetic.py:194,</span> in <span class="ni">DiceGenetic.do_param_initializations</span><span class="nt">(self, total_CFs, initialization, desired_range, desired_class, query_instance, query_instance_df_dummies, algorithm, features_to_vary, permitted_range, yloss_type, diversity_loss_type, feature_weights, proximity_weight, sparsity_weight, diversity_weight, categorical_penalty, verbose)</span>
-<span class="g g-Whitespace">    </span><span class="mi">192</span> <span class="bp">self</span><span class="o">.</span><span class="n">feature_range</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_valid_feature_range</span><span class="p">(</span><span class="n">normalized</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">193</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cfs</span><span class="p">)</span> <span class="o">!=</span> <span class="n">total_CFs</span><span class="p">:</span>
-<span class="ne">--&gt; </span><span class="mi">194</span>     <span class="bp">self</span><span class="o">.</span><span class="n">do_cf_initializations</span><span class="p">(</span>
-<span class="g g-Whitespace">    </span><span class="mi">195</span>         <span class="n">total_CFs</span><span class="p">,</span> <span class="n">initialization</span><span class="p">,</span> <span class="n">algorithm</span><span class="p">,</span> <span class="n">features_to_vary</span><span class="p">,</span> <span class="n">desired_range</span><span class="p">,</span> <span class="n">desired_class</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">196</span>         <span class="n">query_instance</span><span class="p">,</span> <span class="n">query_instance_df_dummies</span><span class="p">,</span> <span class="n">verbose</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">197</span> <span class="k">else</span><span class="p">:</span>
-<span class="g g-Whitespace">    </span><span class="mi">198</span>     <span class="bp">self</span><span class="o">.</span><span class="n">total_CFs</span> <span class="o">=</span> <span class="n">total_CFs</span>
-
-<span class="nn">File ~/.python/current/lib/python3.10/site-packages/dice_ml/explainer_interfaces/dice_genetic.py:180,</span> in <span class="ni">DiceGenetic.do_cf_initializations</span><span class="nt">(self, total_CFs, initialization, algorithm, features_to_vary, desired_range, desired_class, query_instance, query_instance_df_dummies, verbose)</span>
-<span class="g g-Whitespace">    </span><span class="mi">178</span>         <span class="n">indices</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">KD_tree</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">query_instance_df_dummies</span><span class="p">,</span> <span class="n">num_queries</span><span class="p">)[</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
-<span class="g g-Whitespace">    </span><span class="mi">179</span>         <span class="n">KD_tree_output</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dataset_with_predictions</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">indices</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
-<span class="ne">--&gt; </span><span class="mi">180</span>         <span class="bp">self</span><span class="o">.</span><span class="n">do_KD_init</span><span class="p">(</span><span class="n">features_to_vary</span><span class="p">,</span> <span class="n">query_instance</span><span class="p">,</span> <span class="n">KD_tree_output</span><span class="p">,</span> <span class="n">desired_class</span><span class="p">,</span> <span class="n">desired_range</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">182</span> <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span>
-<span class="g g-Whitespace">    </span><span class="mi">183</span>     <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Initialization complete! Generating counterfactuals...&quot;</span><span class="p">)</span>
-
-<span class="nn">File ~/.python/current/lib/python3.10/site-packages/dice_ml/explainer_interfaces/dice_genetic.py:140,</span> in <span class="ni">DiceGenetic.do_KD_init</span><span class="nt">(self, features_to_vary, query_instance, cfs, desired_class, desired_range)</span>
-<span class="g g-Whitespace">    </span><span class="mi">137</span> <span class="n">uniques</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">new_array</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">139</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">uniques</span><span class="p">)</span> <span class="o">!=</span> <span class="bp">self</span><span class="o">.</span><span class="n">population_size</span><span class="p">:</span>
-<span class="ne">--&gt; </span><span class="mi">140</span>     <span class="n">remaining_cfs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">do_random_init</span><span class="p">(</span>
-<span class="g g-Whitespace">    </span><span class="mi">141</span>         <span class="bp">self</span><span class="o">.</span><span class="n">population_size</span> <span class="o">-</span> <span class="nb">len</span><span class="p">(</span><span class="n">uniques</span><span class="p">),</span> <span class="n">features_to_vary</span><span class="p">,</span> <span class="n">query_instance</span><span class="p">,</span> <span class="n">desired_class</span><span class="p">,</span> <span class="n">desired_range</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">142</span>     <span class="bp">self</span><span class="o">.</span><span class="n">cfs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">([</span><span class="n">uniques</span><span class="p">,</span> <span class="n">remaining_cfs</span><span class="p">])</span>
-
-<span class="nn">File ~/.python/current/lib/python3.10/site-packages/dice_ml/explainer_interfaces/dice_genetic.py:98,</span> in <span class="ni">DiceGenetic.do_random_init</span><span class="nt">(self, num_inits, features_to_vary, query_instance, desired_class, desired_range)</span>
-<span class="g g-Whitespace">     </span><span class="mi">96</span>     <span class="k">else</span><span class="p">:</span>
-<span class="g g-Whitespace">     </span><span class="mi">97</span>         <span class="n">one_init</span><span class="p">[</span><span class="n">jx</span><span class="p">]</span> <span class="o">=</span> <span class="n">query_instance</span><span class="p">[</span><span class="n">jx</span><span class="p">]</span>
-<span class="ne">---&gt; </span><span class="mi">98</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_cf_valid</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">predict_fn_scores</span><span class="p">(</span><span class="n">one_init</span><span class="p">)):</span>
-<span class="g g-Whitespace">     </span><span class="mi">99</span>     <span class="n">remaining_cfs</span><span class="p">[</span><span class="n">kx</span><span class="p">]</span> <span class="o">=</span> <span class="n">one_init</span>
-<span class="g g-Whitespace">    </span><span class="mi">100</span>     <span class="n">kx</span> <span class="o">+=</span> <span class="mi">1</span>
-
-<span class="nn">File ~/.python/current/lib/python3.10/site-packages/dice_ml/explainer_interfaces/dice_genetic.py:309,</span> in <span class="ni">DiceGenetic.predict_fn_scores</span><span class="nt">(self, input_instance)</span>
-<span class="g g-Whitespace">    </span><span class="mi">307</span><span class="w"> </span><span class="sd">&quot;&quot;&quot;Returns prediction scores.&quot;&quot;&quot;</span>
-<span class="g g-Whitespace">    </span><span class="mi">308</span> <span class="n">input_instance</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">label_decode</span><span class="p">(</span><span class="n">input_instance</span><span class="p">)</span>
-<span class="ne">--&gt; </span><span class="mi">309</span> <span class="n">out</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">get_output</span><span class="p">(</span><span class="n">input_instance</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">310</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">model_type</span> <span class="o">==</span> <span class="n">ModelTypes</span><span class="o">.</span><span class="n">Classifier</span> <span class="ow">and</span> <span class="n">out</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
-<span class="g g-Whitespace">    </span><span class="mi">311</span>     <span class="c1"># DL models return only 1 for binary classification</span>
-<span class="g g-Whitespace">    </span><span class="mi">312</span>     <span class="n">out</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">((</span><span class="mi">1</span><span class="o">-</span><span class="n">out</span><span class="p">,</span> <span class="n">out</span><span class="p">))</span>
-
-<span class="nn">File ~/.python/current/lib/python3.10/site-packages/dice_ml/model_interfaces/base_model.py:54,</span> in <span class="ni">BaseModel.get_output</span><span class="nt">(self, input_instance, model_score)</span>
-<span class="g g-Whitespace">     </span><span class="mi">52</span> <span class="k">if</span> <span class="n">model_score</span><span class="p">:</span>
-<span class="g g-Whitespace">     </span><span class="mi">53</span>     <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">model_type</span> <span class="o">==</span> <span class="n">ModelTypes</span><span class="o">.</span><span class="n">Classifier</span><span class="p">:</span>
-<span class="ne">---&gt; </span><span class="mi">54</span>         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">input_instance</span><span class="p">)</span>
-<span class="g g-Whitespace">     </span><span class="mi">55</span>     <span class="k">else</span><span class="p">:</span>
-<span class="g g-Whitespace">     </span><span class="mi">56</span>         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">input_instance</span><span class="p">)</span>
-
-<span class="nn">File ~/.local/lib/python3.10/site-packages/sklearn/pipeline.py:723,</span> in <span class="ni">Pipeline.predict_proba</span><span class="nt">(self, X, **params)</span>
-<span class="g g-Whitespace">    </span><span class="mi">721</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">_routing_enabled</span><span class="p">():</span>
-<span class="g g-Whitespace">    </span><span class="mi">722</span>     <span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">transform</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_iter</span><span class="p">(</span><span class="n">with_final</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
-<span class="ne">--&gt; </span><span class="mi">723</span>         <span class="n">Xt</span> <span class="o">=</span> <span class="n">transform</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">Xt</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">724</span>     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">steps</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">Xt</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">726</span> <span class="c1"># metadata routing enabled</span>
-
-<span class="nn">File ~/.local/lib/python3.10/site-packages/sklearn/utils/_set_output.py:313,</span> in <span class="ni">_wrap_method_output.&lt;locals&gt;.wrapped</span><span class="nt">(self, X, *args, **kwargs)</span>
-<span class="g g-Whitespace">    </span><span class="mi">311</span> <span class="nd">@wraps</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">312</span> <span class="k">def</span> <span class="nf">wrapped</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-<span class="ne">--&gt; </span><span class="mi">313</span>     <span class="n">data_to_wrap</span> <span class="o">=</span> <span class="n">f</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">314</span>     <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">data_to_wrap</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">):</span>
-<span class="g g-Whitespace">    </span><span class="mi">315</span>         <span class="c1"># only wrap the first output for cross decomposition</span>
-<span class="g g-Whitespace">    </span><span class="mi">316</span>         <span class="n">return_tuple</span> <span class="o">=</span> <span class="p">(</span>
-<span class="g g-Whitespace">    </span><span class="mi">317</span>             <span class="n">_wrap_data_with_container</span><span class="p">(</span><span class="n">method</span><span class="p">,</span> <span class="n">data_to_wrap</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">X</span><span class="p">,</span> <span class="bp">self</span><span class="p">),</span>
-<span class="g g-Whitespace">    </span><span class="mi">318</span>             <span class="o">*</span><span class="n">data_to_wrap</span><span class="p">[</span><span class="mi">1</span><span class="p">:],</span>
-<span class="g g-Whitespace">    </span><span class="mi">319</span>         <span class="p">)</span>
-
-<span class="nn">File ~/.local/lib/python3.10/site-packages/sklearn/compose/_column_transformer.py:1077,</span> in <span class="ni">ColumnTransformer.transform</span><span class="nt">(self, X, **params)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1074</span> <span class="k">else</span><span class="p">:</span>
-<span class="g g-Whitespace">   </span><span class="mi">1075</span>     <span class="n">routed_params</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_empty_routing</span><span class="p">()</span>
-<span class="ne">-&gt; </span><span class="mi">1077</span> <span class="n">Xs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_call_func_on_transformers</span><span class="p">(</span>
-<span class="g g-Whitespace">   </span><span class="mi">1078</span>     <span class="n">X</span><span class="p">,</span>
-<span class="g g-Whitespace">   </span><span class="mi">1079</span>     <span class="kc">None</span><span class="p">,</span>
-<span class="g g-Whitespace">   </span><span class="mi">1080</span>     <span class="n">_transform_one</span><span class="p">,</span>
-<span class="g g-Whitespace">   </span><span class="mi">1081</span>     <span class="n">column_as_labels</span><span class="o">=</span><span class="n">fit_dataframe_and_transform_dataframe</span><span class="p">,</span>
-<span class="g g-Whitespace">   </span><span class="mi">1082</span>     <span class="n">routed_params</span><span class="o">=</span><span class="n">routed_params</span><span class="p">,</span>
-<span class="g g-Whitespace">   </span><span class="mi">1083</span> <span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1084</span> <span class="bp">self</span><span class="o">.</span><span class="n">_validate_output</span><span class="p">(</span><span class="n">Xs</span><span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1086</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">Xs</span><span class="p">:</span>
-<span class="g g-Whitespace">   </span><span class="mi">1087</span>     <span class="c1"># All transformers are None</span>
-
-<span class="nn">File ~/.local/lib/python3.10/site-packages/sklearn/compose/_column_transformer.py:886,</span> in <span class="ni">ColumnTransformer._call_func_on_transformers</span><span class="nt">(self, X, y, func, column_as_labels, routed_params)</span>
-<span class="g g-Whitespace">    </span><span class="mi">873</span>             <span class="n">extra_args</span> <span class="o">=</span> <span class="p">{}</span>
-<span class="g g-Whitespace">    </span><span class="mi">874</span>         <span class="n">jobs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
-<span class="g g-Whitespace">    </span><span class="mi">875</span>             <span class="n">delayed</span><span class="p">(</span><span class="n">func</span><span class="p">)(</span>
-<span class="g g-Whitespace">    </span><span class="mi">876</span>                 <span class="n">transformer</span><span class="o">=</span><span class="n">clone</span><span class="p">(</span><span class="n">trans</span><span class="p">)</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">fitted</span> <span class="k">else</span> <span class="n">trans</span><span class="p">,</span>
-   <span class="p">(</span><span class="o">...</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">883</span>             <span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">884</span>         <span class="p">)</span>
-<span class="ne">--&gt; </span><span class="mi">886</span>     <span class="k">return</span> <span class="n">Parallel</span><span class="p">(</span><span class="n">n_jobs</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">n_jobs</span><span class="p">)(</span><span class="n">jobs</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">888</span> <span class="k">except</span> <span class="ne">ValueError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-<span class="g g-Whitespace">    </span><span class="mi">889</span>     <span class="k">if</span> <span class="s2">&quot;Expected 2D array, got 1D array instead&quot;</span> <span class="ow">in</span> <span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">):</span>
-
-<span class="nn">File ~/.local/lib/python3.10/site-packages/sklearn/utils/parallel.py:67,</span> in <span class="ni">Parallel.__call__</span><span class="nt">(self, iterable)</span>
-<span class="g g-Whitespace">     </span><span class="mi">62</span> <span class="n">config</span> <span class="o">=</span> <span class="n">get_config</span><span class="p">()</span>
-<span class="g g-Whitespace">     </span><span class="mi">63</span> <span class="n">iterable_with_config</span> <span class="o">=</span> <span class="p">(</span>
-<span class="g g-Whitespace">     </span><span class="mi">64</span>     <span class="p">(</span><span class="n">_with_config</span><span class="p">(</span><span class="n">delayed_func</span><span class="p">,</span> <span class="n">config</span><span class="p">),</span> <span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">)</span>
-<span class="g g-Whitespace">     </span><span class="mi">65</span>     <span class="k">for</span> <span class="n">delayed_func</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span> <span class="ow">in</span> <span class="n">iterable</span>
-<span class="g g-Whitespace">     </span><span class="mi">66</span> <span class="p">)</span>
-<span class="ne">---&gt; </span><span class="mi">67</span> <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__call__</span><span class="p">(</span><span class="n">iterable_with_config</span><span class="p">)</span>
-
-<span class="nn">File ~/.local/lib/python3.10/site-packages/joblib/parallel.py:1918,</span> in <span class="ni">Parallel.__call__</span><span class="nt">(self, iterable)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1916</span>     <span class="n">output</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_sequential_output</span><span class="p">(</span><span class="n">iterable</span><span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1917</span>     <span class="nb">next</span><span class="p">(</span><span class="n">output</span><span class="p">)</span>
-<span class="ne">-&gt; </span><span class="mi">1918</span>     <span class="k">return</span> <span class="n">output</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">return_generator</span> <span class="k">else</span> <span class="nb">list</span><span class="p">(</span><span class="n">output</span><span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1920</span> <span class="c1"># Let&#39;s create an ID that uniquely identifies the current call. If the</span>
-<span class="g g-Whitespace">   </span><span class="mi">1921</span> <span class="c1"># call is interrupted early and that the same instance is immediately</span>
-<span class="g g-Whitespace">   </span><span class="mi">1922</span> <span class="c1"># re-used, this id will be used to prevent workers that were</span>
-<span class="g g-Whitespace">   </span><span class="mi">1923</span> <span class="c1"># concurrently finalizing a task from the previous call to run the</span>
-<span class="g g-Whitespace">   </span><span class="mi">1924</span> <span class="c1"># callback.</span>
-<span class="g g-Whitespace">   </span><span class="mi">1925</span> <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">_lock</span><span class="p">:</span>
-
-<span class="nn">File ~/.local/lib/python3.10/site-packages/joblib/parallel.py:1847,</span> in <span class="ni">Parallel._get_sequential_output</span><span class="nt">(self, iterable)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1845</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_dispatched_batches</span> <span class="o">+=</span> <span class="mi">1</span>
-<span class="g g-Whitespace">   </span><span class="mi">1846</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_dispatched_tasks</span> <span class="o">+=</span> <span class="mi">1</span>
-<span class="ne">-&gt; </span><span class="mi">1847</span> <span class="n">res</span> <span class="o">=</span> <span class="n">func</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1848</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_completed_tasks</span> <span class="o">+=</span> <span class="mi">1</span>
-<span class="g g-Whitespace">   </span><span class="mi">1849</span> <span class="bp">self</span><span class="o">.</span><span class="n">print_progress</span><span class="p">()</span>
-
-<span class="nn">File ~/.local/lib/python3.10/site-packages/sklearn/utils/parallel.py:129,</span> in <span class="ni">_FuncWrapper.__call__</span><span class="nt">(self, *args, **kwargs)</span>
-<span class="g g-Whitespace">    </span><span class="mi">127</span>     <span class="n">config</span> <span class="o">=</span> <span class="p">{}</span>
-<span class="g g-Whitespace">    </span><span class="mi">128</span> <span class="k">with</span> <span class="n">config_context</span><span class="p">(</span><span class="o">**</span><span class="n">config</span><span class="p">):</span>
-<span class="ne">--&gt; </span><span class="mi">129</span>     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">function</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-
-<span class="nn">File ~/.local/lib/python3.10/site-packages/sklearn/pipeline.py:1297,</span> in <span class="ni">_transform_one</span><span class="nt">(transformer, X, y, weight, columns, params)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1272</span><span class="w"> </span><span class="sd">&quot;&quot;&quot;Call transform and apply weight to output.</span>
-<span class="g g-Whitespace">   </span><span class="mi">1273</span><span class="sd"> </span>
-<span class="g g-Whitespace">   </span><span class="mi">1274</span><span class="sd"> Parameters</span>
-<span class="sd">   (...)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1294</span><span class="sd">     This should be of the form ``process_routing()[&quot;step_name&quot;]``.</span>
-<span class="g g-Whitespace">   </span><span class="mi">1295</span><span class="sd"> &quot;&quot;&quot;</span>
-<span class="g g-Whitespace">   </span><span class="mi">1296</span> <span class="k">if</span> <span class="n">columns</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-<span class="ne">-&gt; </span><span class="mi">1297</span>     <span class="n">X</span> <span class="o">=</span> <span class="n">_safe_indexing</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">columns</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1299</span> <span class="n">res</span> <span class="o">=</span> <span class="n">transformer</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="o">.</span><span class="n">transform</span><span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1300</span> <span class="c1"># if we have a weight for this transformer, multiply output</span>
-
-<span class="nn">File ~/.local/lib/python3.10/site-packages/sklearn/utils/_indexing.py:263,</span> in <span class="ni">_safe_indexing</span><span class="nt">(X, indices, axis)</span>
-<span class="g g-Whitespace">    </span><span class="mi">256</span>     <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-<span class="g g-Whitespace">    </span><span class="mi">257</span>         <span class="s2">&quot;Specifying the columns using strings is only supported for dataframes.&quot;</span>
-<span class="g g-Whitespace">    </span><span class="mi">258</span>     <span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">260</span> <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="s2">&quot;iloc&quot;</span><span class="p">):</span>
-<span class="g g-Whitespace">    </span><span class="mi">261</span>     <span class="c1"># TODO: we should probably use _is_pandas_df_or_series(X) instead but this</span>
-<span class="g g-Whitespace">    </span><span class="mi">262</span>     <span class="c1"># would require updating some tests such as test_train_test_split_mock_pandas.</span>
-<span class="ne">--&gt; </span><span class="mi">263</span>     <span class="k">return</span> <span class="n">_pandas_indexing</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">indices</span><span class="p">,</span> <span class="n">indices_dtype</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="n">axis</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">264</span> <span class="k">elif</span> <span class="n">_is_polars_df_or_series</span><span class="p">(</span><span class="n">X</span><span class="p">):</span>
-<span class="g g-Whitespace">    </span><span class="mi">265</span>     <span class="k">return</span> <span class="n">_polars_indexing</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">indices</span><span class="p">,</span> <span class="n">indices_dtype</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="n">axis</span><span class="p">)</span>
-
-<span class="nn">File ~/.local/lib/python3.10/site-packages/sklearn/utils/_indexing.py:48,</span> in <span class="ni">_pandas_indexing</span><span class="nt">(X, key, key_dtype, axis)</span>
-<span class="g g-Whitespace">     </span><span class="mi">45</span> <span class="k">else</span><span class="p">:</span>
-<span class="g g-Whitespace">     </span><span class="mi">46</span>     <span class="c1"># check whether we should index with loc or iloc</span>
-<span class="g g-Whitespace">     </span><span class="mi">47</span>     <span class="n">indexer</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">iloc</span> <span class="k">if</span> <span class="n">key_dtype</span> <span class="o">==</span> <span class="s2">&quot;int&quot;</span> <span class="k">else</span> <span class="n">X</span><span class="o">.</span><span class="n">loc</span>
-<span class="ne">---&gt; </span><span class="mi">48</span>     <span class="k">return</span> <span class="n">indexer</span><span class="p">[:,</span> <span class="n">key</span><span class="p">]</span> <span class="k">if</span> <span class="n">axis</span> <span class="k">else</span> <span class="n">indexer</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
-
-<span class="nn">File ~/.python/current/lib/python3.10/site-packages/pandas/core/indexing.py:1067,</span> in <span class="ni">_LocationIndexer.__getitem__</span><span class="nt">(self, key)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1065</span>     <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_is_scalar_access</span><span class="p">(</span><span class="n">key</span><span class="p">):</span>
-<span class="g g-Whitespace">   </span><span class="mi">1066</span>         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">obj</span><span class="o">.</span><span class="n">_get_value</span><span class="p">(</span><span class="o">*</span><span class="n">key</span><span class="p">,</span> <span class="n">takeable</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_takeable</span><span class="p">)</span>
-<span class="ne">-&gt; </span><span class="mi">1067</span>     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_getitem_tuple</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1068</span> <span class="k">else</span><span class="p">:</span>
-<span class="g g-Whitespace">   </span><span class="mi">1069</span>     <span class="c1"># we by definition only have the 0th axis</span>
-<span class="g g-Whitespace">   </span><span class="mi">1070</span>     <span class="n">axis</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">axis</span> <span class="ow">or</span> <span class="mi">0</span>
-
-<span class="nn">File ~/.python/current/lib/python3.10/site-packages/pandas/core/indexing.py:1256,</span> in <span class="ni">_LocIndexer._getitem_tuple</span><span class="nt">(self, tup)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1253</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_multi_take_opportunity</span><span class="p">(</span><span class="n">tup</span><span class="p">):</span>
-<span class="g g-Whitespace">   </span><span class="mi">1254</span>     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_multi_take</span><span class="p">(</span><span class="n">tup</span><span class="p">)</span>
-<span class="ne">-&gt; </span><span class="mi">1256</span> <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_getitem_tuple_same_dim</span><span class="p">(</span><span class="n">tup</span><span class="p">)</span>
-
-<span class="nn">File ~/.python/current/lib/python3.10/site-packages/pandas/core/indexing.py:924,</span> in <span class="ni">_LocationIndexer._getitem_tuple_same_dim</span><span class="nt">(self, tup)</span>
-<span class="g g-Whitespace">    </span><span class="mi">921</span> <span class="k">if</span> <span class="n">com</span><span class="o">.</span><span class="n">is_null_slice</span><span class="p">(</span><span class="n">key</span><span class="p">):</span>
-<span class="g g-Whitespace">    </span><span class="mi">922</span>     <span class="k">continue</span>
-<span class="ne">--&gt; </span><span class="mi">924</span> <span class="n">retval</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">retval</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">)</span><span class="o">.</span><span class="n">_getitem_axis</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="n">i</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">925</span> <span class="c1"># We should never have retval.ndim &lt; self.ndim, as that should</span>
-<span class="g g-Whitespace">    </span><span class="mi">926</span> <span class="c1">#  be handled by the _getitem_lowerdim call above.</span>
-<span class="g g-Whitespace">    </span><span class="mi">927</span> <span class="k">assert</span> <span class="n">retval</span><span class="o">.</span><span class="n">ndim</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">ndim</span>
-
-<span class="nn">File ~/.python/current/lib/python3.10/site-packages/pandas/core/indexing.py:1301,</span> in <span class="ni">_LocIndexer._getitem_axis</span><span class="nt">(self, key, axis)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1298</span>     <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="s2">&quot;ndim&quot;</span><span class="p">)</span> <span class="ow">and</span> <span class="n">key</span><span class="o">.</span><span class="n">ndim</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
-<span class="g g-Whitespace">   </span><span class="mi">1299</span>         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Cannot index with multidimensional key&quot;</span><span class="p">)</span>
-<span class="ne">-&gt; </span><span class="mi">1301</span>     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_getitem_iterable</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="n">axis</span><span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1303</span> <span class="c1"># nested tuple slicing</span>
-<span class="g g-Whitespace">   </span><span class="mi">1304</span> <span class="k">if</span> <span class="n">is_nested_tuple</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">labels</span><span class="p">):</span>
-
-<span class="nn">File ~/.python/current/lib/python3.10/site-packages/pandas/core/indexing.py:1239,</span> in <span class="ni">_LocIndexer._getitem_iterable</span><span class="nt">(self, key, axis)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1236</span> <span class="bp">self</span><span class="o">.</span><span class="n">_validate_key</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">axis</span><span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1238</span> <span class="c1"># A collection of keys</span>
-<span class="ne">-&gt; </span><span class="mi">1239</span> <span class="n">keyarr</span><span class="p">,</span> <span class="n">indexer</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_listlike_indexer</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">axis</span><span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1240</span> <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">obj</span><span class="o">.</span><span class="n">_reindex_with_indexers</span><span class="p">(</span>
-<span class="g g-Whitespace">   </span><span class="mi">1241</span>     <span class="p">{</span><span class="n">axis</span><span class="p">:</span> <span class="p">[</span><span class="n">keyarr</span><span class="p">,</span> <span class="n">indexer</span><span class="p">]},</span> <span class="n">copy</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">allow_dups</span><span class="o">=</span><span class="kc">True</span>
-<span class="g g-Whitespace">   </span><span class="mi">1242</span> <span class="p">)</span>
-
-<span class="nn">File ~/.python/current/lib/python3.10/site-packages/pandas/core/indexing.py:1432,</span> in <span class="ni">_LocIndexer._get_listlike_indexer</span><span class="nt">(self, key, axis)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1429</span> <span class="n">ax</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">obj</span><span class="o">.</span><span class="n">_get_axis</span><span class="p">(</span><span class="n">axis</span><span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1430</span> <span class="n">axis_name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">obj</span><span class="o">.</span><span class="n">_get_axis_name</span><span class="p">(</span><span class="n">axis</span><span class="p">)</span>
-<span class="ne">-&gt; </span><span class="mi">1432</span> <span class="n">keyarr</span><span class="p">,</span> <span class="n">indexer</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">_get_indexer_strict</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">axis_name</span><span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1434</span> <span class="k">return</span> <span class="n">keyarr</span><span class="p">,</span> <span class="n">indexer</span>
-
-<span class="nn">File ~/.python/current/lib/python3.10/site-packages/pandas/core/indexes/base.py:6066,</span> in <span class="ni">Index._get_indexer_strict</span><span class="nt">(self, key, axis_name)</span>
-<span class="g g-Whitespace">   </span><span class="mi">6064</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_index_as_unique</span><span class="p">:</span>
-<span class="g g-Whitespace">   </span><span class="mi">6065</span>     <span class="n">indexer</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_indexer_for</span><span class="p">(</span><span class="n">keyarr</span><span class="p">)</span>
-<span class="ne">-&gt; </span><span class="mi">6066</span>     <span class="n">keyarr</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">reindex</span><span class="p">(</span><span class="n">keyarr</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
-<span class="g g-Whitespace">   </span><span class="mi">6067</span> <span class="k">else</span><span class="p">:</span>
-<span class="g g-Whitespace">   </span><span class="mi">6068</span>     <span class="n">keyarr</span><span class="p">,</span> <span class="n">indexer</span><span class="p">,</span> <span class="n">new_indexer</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_reindex_non_unique</span><span class="p">(</span><span class="n">keyarr</span><span class="p">)</span>
-
-<span class="nn">File ~/.python/current/lib/python3.10/site-packages/pandas/core/indexes/base.py:4412,</span> in <span class="ni">Index.reindex</span><span class="nt">(self, target, method, level, limit, tolerance)</span>
-<span class="g g-Whitespace">   </span><span class="mi">4410</span> <span class="k">else</span><span class="p">:</span>
-<span class="g g-Whitespace">   </span><span class="mi">4411</span>     <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_index_as_unique</span><span class="p">:</span>
-<span class="ne">-&gt; </span><span class="mi">4412</span>         <span class="n">indexer</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_indexer</span><span class="p">(</span>
-<span class="g g-Whitespace">   </span><span class="mi">4413</span>             <span class="n">target</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="n">method</span><span class="p">,</span> <span class="n">limit</span><span class="o">=</span><span class="n">limit</span><span class="p">,</span> <span class="n">tolerance</span><span class="o">=</span><span class="n">tolerance</span>
-<span class="g g-Whitespace">   </span><span class="mi">4414</span>         <span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">4415</span>     <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">_is_multi</span><span class="p">:</span>
-<span class="g g-Whitespace">   </span><span class="mi">4416</span>         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;cannot handle a non-unique multi-index!&quot;</span><span class="p">)</span>
-
-<span class="nn">File ~/.python/current/lib/python3.10/site-packages/pandas/core/indexes/base.py:3909,</span> in <span class="ni">Index.get_indexer</span><span class="nt">(self, target, method, limit, tolerance)</span>
-<span class="g g-Whitespace">   </span><span class="mi">3906</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">target</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-<span class="g g-Whitespace">   </span><span class="mi">3907</span>     <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">intp</span><span class="p">)</span>
-<span class="ne">-&gt; </span><span class="mi">3909</span> <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_should_compare</span><span class="p">(</span><span class="n">target</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_should_partial_index</span><span class="p">(</span><span class="n">target</span><span class="p">):</span>
-<span class="g g-Whitespace">   </span><span class="mi">3910</span>     <span class="c1"># IntervalIndex get special treatment bc numeric scalars can be</span>
-<span class="g g-Whitespace">   </span><span class="mi">3911</span>     <span class="c1">#  matched to Interval scalars</span>
-<span class="g g-Whitespace">   </span><span class="mi">3912</span>     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_indexer_non_comparable</span><span class="p">(</span><span class="n">target</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="n">method</span><span class="p">,</span> <span class="n">unique</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">3914</span> <span class="k">if</span> <span class="n">is_categorical_dtype</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dtype</span><span class="p">):</span>
-<span class="g g-Whitespace">   </span><span class="mi">3915</span>     <span class="c1"># _maybe_cast_listlike_indexer ensures target has our dtype</span>
-<span class="g g-Whitespace">   </span><span class="mi">3916</span>     <span class="c1">#  (could improve perf by doing _should_compare check earlier?)</span>
-
-<span class="nn">File ~/.python/current/lib/python3.10/site-packages/pandas/core/indexes/base.py:6291,</span> in <span class="ni">Index._should_compare</span><span class="nt">(self, other)</span>
-<span class="g g-Whitespace">   </span><span class="mi">6285</span> <span class="nd">@final</span>
-<span class="g g-Whitespace">   </span><span class="mi">6286</span> <span class="k">def</span> <span class="nf">_should_compare</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="n">Index</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-<span class="g g-Whitespace">   </span><span class="mi">6287</span><span class="w">     </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="g g-Whitespace">   </span><span class="mi">6288</span><span class="sd">     Check if `self == other` can ever have non-False entries.</span>
-<span class="g g-Whitespace">   </span><span class="mi">6289</span><span class="sd">     &quot;&quot;&quot;</span>
-<span class="ne">-&gt; </span><span class="mi">6291</span>     <span class="k">if</span> <span class="p">(</span><span class="n">other</span><span class="o">.</span><span class="n">is_boolean</span><span class="p">()</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_numeric</span><span class="p">())</span> <span class="ow">or</span> <span class="p">(</span>
-<span class="g g-Whitespace">   </span><span class="mi">6292</span>         <span class="bp">self</span><span class="o">.</span><span class="n">is_boolean</span><span class="p">()</span> <span class="ow">and</span> <span class="n">other</span><span class="o">.</span><span class="n">is_numeric</span><span class="p">()</span>
-<span class="g g-Whitespace">   </span><span class="mi">6293</span>     <span class="p">):</span>
-<span class="g g-Whitespace">   </span><span class="mi">6294</span>         <span class="c1"># GH#16877 Treat boolean labels passed to a numeric index as not</span>
-<span class="g g-Whitespace">   </span><span class="mi">6295</span>         <span class="c1">#  found. Without this fix False and True would be treated as 0 and 1</span>
-<span class="g g-Whitespace">   </span><span class="mi">6296</span>         <span class="c1">#  respectively.</span>
-<span class="g g-Whitespace">   </span><span class="mi">6297</span>         <span class="k">return</span> <span class="kc">False</span>
-<span class="g g-Whitespace">   </span><span class="mi">6299</span>     <span class="n">other</span> <span class="o">=</span> <span class="n">unpack_nested_dtype</span><span class="p">(</span><span class="n">other</span><span class="p">)</span>
-
-<span class="nn">File ~/.python/current/lib/python3.10/site-packages/pandas/core/indexes/base.py:2455,</span> in <span class="ni">Index.is_boolean</span><span class="nt">(self)</span>
-<span class="g g-Whitespace">   </span><span class="mi">2421</span> <span class="nd">@final</span>
-<span class="g g-Whitespace">   </span><span class="mi">2422</span> <span class="k">def</span> <span class="nf">is_boolean</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-<span class="g g-Whitespace">   </span><span class="mi">2423</span><span class="w">     </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="g g-Whitespace">   </span><span class="mi">2424</span><span class="sd">     Check if the Index only consists of booleans.</span>
-<span class="g g-Whitespace">   </span><span class="mi">2425</span><span class="sd"> </span>
-<span class="sd">   (...)</span>
-<span class="g g-Whitespace">   </span><span class="mi">2453</span><span class="sd">     False</span>
-<span class="g g-Whitespace">   </span><span class="mi">2454</span><span class="sd">     &quot;&quot;&quot;</span>
-<span class="ne">-&gt; </span><span class="mi">2455</span>     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">inferred_type</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;boolean&quot;</span><span class="p">]</span>
-
-<span class="nn">File ~/.python/current/lib/python3.10/site-packages/pandas/_libs/properties.pyx:36,</span> in <span class="ni">pandas._libs.properties.CachedProperty.__get__</span><span class="nt">()</span>
-
-<span class="nn">File ~/.python/current/lib/python3.10/site-packages/pandas/core/indexes/base.py:2750,</span> in <span class="ni">Index.inferred_type</span><span class="nt">(self)</span>
-<span class="g g-Whitespace">   </span><span class="mi">2745</span> <span class="nd">@cache_readonly</span>
-<span class="g g-Whitespace">   </span><span class="mi">2746</span> <span class="k">def</span> <span class="nf">inferred_type</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">str_t</span><span class="p">:</span>
-<span class="g g-Whitespace">   </span><span class="mi">2747</span><span class="w">     </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="g g-Whitespace">   </span><span class="mi">2748</span><span class="sd">     Return a string of the type inferred from the values.</span>
-<span class="g g-Whitespace">   </span><span class="mi">2749</span><span class="sd">     &quot;&quot;&quot;</span>
-<span class="ne">-&gt; </span><span class="mi">2750</span>     <span class="k">return</span> <span class="n">lib</span><span class="o">.</span><span class="n">infer_dtype</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_values</span><span class="p">,</span> <span class="n">skipna</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-
-<span class="nn">File ~/.python/current/lib/python3.10/site-packages/pandas/_libs/lib.pyx:1493,</span> in <span class="ni">pandas._libs.lib.infer_dtype</span><span class="nt">()</span>
-
-<span class="nn">File ~/.python/current/lib/python3.10/site-packages/pandas/_libs/lib.pyx:1349,</span> in <span class="ni">pandas._libs.lib._try_infer_map</span><span class="nt">()</span>
-
-<span class="nn">File ~/.local/lib/python3.10/site-packages/numpy/core/_dtype.py:359,</span> in <span class="ni">_name_get</span><span class="nt">(dtype)</span>
-<span class="g g-Whitespace">    </span><span class="mi">357</span>     <span class="n">name</span> <span class="o">=</span> <span class="n">dtype</span><span class="o">.</span><span class="n">type</span><span class="o">.</span><span class="vm">__name__</span>
-<span class="g g-Whitespace">    </span><span class="mi">358</span> <span class="k">else</span><span class="p">:</span>
-<span class="ne">--&gt; </span><span class="mi">359</span>     <span class="n">name</span> <span class="o">=</span> <span class="n">_kind_name</span><span class="p">(</span><span class="n">dtype</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">361</span> <span class="c1"># append bit counts</span>
-<span class="g g-Whitespace">    </span><span class="mi">362</span> <span class="k">if</span> <span class="n">_name_includes_bit_suffix</span><span class="p">(</span><span class="n">dtype</span><span class="p">):</span>
-
-<span class="ne">KeyboardInterrupt</span>: 
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Pos</th>
+      <th>Age</th>
+      <th>G</th>
+      <th>GS</th>
+      <th>MP</th>
+      <th>FG</th>
+      <th>FGA</th>
+      <th>FT</th>
+      <th>FTA</th>
+      <th>ORB</th>
+      <th>DRB</th>
+      <th>TRB</th>
+      <th>AST</th>
+      <th>STL</th>
+      <th>BLK</th>
+      <th>TOV</th>
+      <th>PF</th>
+      <th>PTS</th>
+      <th>salary</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>C</td>
+      <td>22</td>
+      <td>77</td>
+      <td>6</td>
+      <td>15.8</td>
+      <td>3.0</td>
+      <td>6.2</td>
+      <td>1.5</td>
+      <td>1.9</td>
+      <td>1.3</td>
+      <td>2.6</td>
+      <td>3.9</td>
+      <td>0.9</td>
+      <td>0.5</td>
+      <td>0.9</td>
+      <td>1.1</td>
+      <td>2.2</td>
+      <td>8.3</td>
+      <td>5m-</td>
+    </tr>
+  </tbody>
+</table>
+</div></div><div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Diverse Counterfactual set (new outcome: 25m+)
 </pre></div>
 </div>
-</div>
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Pos</th>
+      <th>Age</th>
+      <th>G</th>
+      <th>GS</th>
+      <th>MP</th>
+      <th>FG</th>
+      <th>FGA</th>
+      <th>FT</th>
+      <th>FTA</th>
+      <th>ORB</th>
+      <th>DRB</th>
+      <th>TRB</th>
+      <th>AST</th>
+      <th>STL</th>
+      <th>BLK</th>
+      <th>TOV</th>
+      <th>PF</th>
+      <th>PTS</th>
+      <th>salary</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>-</td>
+      <td>32</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>10.2</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>2.8</td>
+      <td>7.9</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>1.6</td>
+      <td>-</td>
+      <td>-</td>
+      <td>29.0</td>
+      <td>25m+</td>
+    </tr>
+    <tr>
+      <th>0</th>
+      <td>-</td>
+      <td>35</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>9.2</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>1.2</td>
+      <td>10.8</td>
+      <td>-</td>
+      <td>-</td>
+      <td>0.7</td>
+      <td>0.3</td>
+      <td>-</td>
+      <td>-</td>
+      <td>25.0</td>
+      <td>25m+</td>
+    </tr>
+    <tr>
+      <th>0</th>
+      <td>-</td>
+      <td>29</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>11.0</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>1.7</td>
+      <td>10.8</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>2.3</td>
+      <td>-</td>
+      <td>-</td>
+      <td>29.0</td>
+      <td>25m+</td>
+    </tr>
+    <tr>
+      <th>0</th>
+      <td>-</td>
+      <td>32</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>8.4</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>2.2</td>
+      <td>10.8</td>
+      <td>-</td>
+      <td>-</td>
+      <td>0.4</td>
+      <td>0.2</td>
+      <td>-</td>
+      <td>-</td>
+      <td>25.0</td>
+      <td>25m+</td>
+    </tr>
+    <tr>
+      <th>0</th>
+      <td>-</td>
+      <td>40</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>11.3</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>2.0</td>
+      <td>10.1</td>
+      <td>-</td>
+      <td>-</td>
+      <td>0.4</td>
+      <td>0.2</td>
+      <td>-</td>
+      <td>-</td>
+      <td>28.0</td>
+      <td>25m+</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
 </div>
 <p>And as a reference these are the league averages per single stat.</p>
 <div class="cell docutils container">
