@@ -32,6 +32,6 @@ Here is a preview of the cell contents:
 -------------------
 ["player_name = 'Naz Reid'", '', 'x_player_test = x_player_test.reset_index(drop=True)', 'x_test = x_test.reset_index(drop=True)', "player_row = x_player_test[x_player_test['Player'].str.contains(player_name)].iloc[0]"]
 ...
-['                                               total_CFs=5,', "                                               features_to_vary=['Age', 'PTS', 'FG', 'ORB', 'DRB', 'STL', 'BLK'],", '                                               desired_class=1', '                                               )', 'genetic.visualize_as_dataframe(show_only_changes=True)']
+['                                               total_CFs=3,', "                                               features_to_vary=['Age', 'PTS', 'ORB', 'DRB', 'STL', 'BLK'],", '                                               desired_class=1', '                                               )', 'genetic.visualize_as_dataframe(show_only_changes=True)']
 -------------------
 
